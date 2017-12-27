@@ -1,5 +1,4 @@
 function conf_load()
-	world = love.physics.newWorld(0, 5*64, true)
 	love.physics.setMeter(64)
 	width, height = love.window.getDesktopDimensions( 1 )
 	--success = love.window.setMode( width, height)

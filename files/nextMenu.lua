@@ -42,6 +42,7 @@ function nextMenu_load()
 	y_score_star_3 = y_menu +300
 
 	pontuacao = 0
+	next_menu_active = false
 end
 
 function nextMenu_update(dt)
@@ -78,12 +79,14 @@ function nextMenu_update(dt)
 
 		if y_menu < (height/2)-(250) then
 			y_menu = (height/2)-(250)
+			next_menu_active = true
 			
 			if pontuacao < score then
 				pontuacao = pontuacao+3
 			elseif pontuacao >= score then
 				pontuacao = score
 			end
+		else next_menu_active = false
 		end
 		--algoritmo para o menu se falhou
 		if fail then
@@ -92,6 +95,8 @@ function nextMenu_update(dt)
 
 		if y_menu_fail < (height/2)-(250) then
 			y_menu_fail = (height/2)-(250)
+			next_menu_active = true
+		else next_menu_active = false
 		end
 
 		if checaToqueRectangle(x_mouse,y_mouse, x_menu, y_menu, 449, 500) or checaToqueRectangle(x_mouse,y_mouse, x_menu_fail, y_menu_fail, 449, 500) then
@@ -122,11 +127,29 @@ function nextMenu_update(dt)
 		--next
 		if checaToqueRectangle(x_mouse,y_mouse, x_next_button, y_next_button, 148, 40) then
 			next_pressed = true
+			if pressed then
+				stage = 2
+				stage_2_play = true
+				objects.ball.body:setActive( false )
+				pressed = false
+			end
 			else next_pressed = false
 		end
 		--try again
 		if checaToqueRectangle(x_mouse,y_mouse, x_try_again_button, y_try_again_button, 239, 40) then
 			try_again_pressed = true
+			if pressed then 
+				if stage == 1 then
+				world:destroy( )
+				stage1_load()
+				nextMenu_load()
+				elseif stage == 2 then
+					world_2:destroy( )
+					stage2_load()
+					nextMenu_load()
+				end
+				pressed = false
+			end
 			else try_again_pressed = false
 		end
 	end

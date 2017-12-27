@@ -19,12 +19,16 @@ function menu_load()
 	x_exit_button=(width/2)-100
 	y_exit_button=y_help_button + 70
 	exit_pressed= false
+	total_score = 0
+	score = 0
+	score_2 = 0
 end
 
 function menu_update(dt)
 	--[[if love.keyboard.isDown("escape") then
 		love.window.close( )
 	end--]]
+	total_score = score + score_2
 	x_mouse, y_mouse = love.mouse.getPosition( )
 	if stage == 0 then
 		function love.mousereleased(x, y, button)
@@ -79,5 +83,11 @@ function menu_draw()
 			love.graphics.draw(exit_button, x_exit_button, y_exit_button)
 		else love.graphics.draw(exit_button_pressed, x_exit_button, y_exit_button)
 		end
+	end
+	if stage > 0 then 
+		love.graphics.setColor(0, 0, 0)
+   		love.graphics.setFont(font_low)
+		love.graphics.print( "pontuação total: " .. total_score, width- 250, 45)
+		love.graphics.setColor(255, 255, 255)
 	end
 end

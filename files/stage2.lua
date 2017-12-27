@@ -1,13 +1,13 @@
-function stage1_load()
-	world = love.physics.newWorld(0, 5*64, true)
+function stage2_load()
+	world_2 = love.physics.newWorld(0, 5*64, true)
 	objects = {}
 	--platforms
 	objects.platform_right = {}
-	objects.platform_right.body = love.physics.newBody(world, 0,(height/4))
+	objects.platform_right.body = love.physics.newBody(world_2, 0,(height*3/4))
 	objects.platform_right.shape = love.physics.newRectangleShape(300, 50)
 	objects.platform_right.fixture = love.physics.newFixture(objects.platform_right.body, objects.platform_right.shape)
 	--------------------------------ball--------------------------------------------------
-	stage_play_button= love.graphics.newImage("images/stage-play-button.png")
+		stage_play_button= love.graphics.newImage("images/stage-play-button.png")
 	stage_replay_button= love.graphics.newImage("images/stage-replay-button.png")
 
 	white= love.graphics.newImage("images/white.png")
@@ -19,7 +19,7 @@ function stage1_load()
 	y_stage_replay_button = y_stage_play_button
 
 	objects.ball = {}
-	objects.ball.body = love.physics.newBody(world, 110,(height/4)-47, "dynamic")
+	objects.ball.body = love.physics.newBody(world_2, 110,(height*3/4)-47, "dynamic")
 	objects.ball.shape = love.physics.newCircleShape(21)
 	objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape)
 	objects.ball.body:setActive( false )
@@ -35,7 +35,7 @@ function stage1_load()
 	draw= true
 	--line
 	objects.line={}
-	objects.line.body = love.physics.newBody(world, width_line, height_line)
+	objects.line.body = love.physics.newBody(world_2, width_line, height_line)
 	objects.line.shape = love.physics.newCircleShape(size)
 	objects.line.fixture = love.physics.newFixture(objects.line.body, objects.line.shape)
 	-----------------------flag---------------------------------------------------------
@@ -45,7 +45,7 @@ function stage1_load()
 	passou= false
 	fail=false
 	------------------------stars------------------------------------------------------
-	score= 0
+	score_2_2= 0
 	star1= love.graphics.newImage("images/star.png")
 	x_star1= 75
 	y_star1= (height*3/5)-150
@@ -65,18 +65,19 @@ function stage1_load()
 		stars[i]=0
 	end
 	--para o efeito da pontuacao
-	x_score_1=x_star1
-	y_score_1=y_star1
-	x_score_2=x_star2
-	y_score_2=y_star2
-	x_score_3=x_star3
-	y_score_3=y_star3
+	x_score_2_1=x_star1
+	y_score_2_1=y_star1
+	x_score_2_2=x_star2
+	y_score_2_2=y_star2
+	x_score_2_3=x_star3
+	y_score_2_3=y_star3
 	opacity1 = 255
 	opacity2 = 255
 	opacity3 = 255
 end
-function stage1_update(dt)
-	world:update(dt)
+
+function stage2_update(dt)
+	world_2:update(dt)
 	x, y = love.mouse.getPosition( )
 	--------------------------flag--------------------------------------
 	if passou then
@@ -111,7 +112,7 @@ function stage1_update(dt)
 		width_line = x
 		height_line = y
 		objects.line={}
-		objects.line.body = love.physics.newBody(world, width_line, height_line)
+		objects.line.body = love.physics.newBody(world_2, width_line, height_line)
 		objects.line.shape = love.physics.newCircleShape(size)
 		objects.line.fixture = love.physics.newFixture(objects.line.body, objects.line.shape)
 	end
@@ -133,43 +134,44 @@ function stage1_update(dt)
 		if checaToqueRectangle(x_mouse,y_mouse, x_stage_replay_button, y_stage_replay_button, 64, 64) then
 			love.mouse.setVisible(true)
 			if love.mouse.isDown(1) and stage_replay and not passou and  not fail then
-				world:destroy( )
-				stage1_load()
+				world_2:destroy( )
+				stage2_load()
 			end
 		end
+
 
 		if not passou then
 			rotation=rotation+velocX_bola/1000
 		end
 	end
 
-	-----------------------------score------------------------------
+	-----------------------------score_2------------------------------
 
 	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_star1-15, y_star1-15, 60, 60) and not star_1_collision then
 		stars[1]= 100
 		star_1_collision = true
-		y_score_1=y_star1
+		y_score_2_1=y_star1
 		opacity1=255
 	end
-	y_score_1 = y_score_1 -4
+	y_score_2_1 = y_score_2_1 -4
 	opacity1 = opacity1 -10
 
 	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_star2-15, y_star2-15, 60, 60) and not star_2_collision then
 		stars[2]= 100
 		star_2_collision = true
-		y_score_2 = y_star2
+		y_score_2_2 = y_star2
 		opacity2 = 255
 	end
-	y_score_2 = y_score_2 -4
+	y_score_2_2 = y_score_2_2 -4
 	opacity2 = opacity2 -10
 
 	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_star3-15, y_star3-15, 60, 60) and not star_3_collision then
 		stars[3]=100
 		star_3_collision = true
-		y_score_3 = y_star3
+		y_score_2_3 = y_star3
 		opacity3 = 255
 	end
-	y_score_3 = y_score_3 -4
+	y_score_2_3 = y_score_2_3 -4
 	opacity3 = opacity3 -10
 
 	if stars[1] == 100 and stars[2]== 0 and stars[3]== 0 then
@@ -187,14 +189,13 @@ function stage1_update(dt)
 	elseif stars[1] == 100 and stars[2]== 100 and stars[3]== 100 then
 		stars[4]= 100
 	end
-	score = stars[1] + stars[2] + stars[3] + stars[4]
+	score_2 = stars[1] + stars[2] + stars[3] + stars[4]
 end
 
-function stage1_draw()
+function stage2_draw()
 	love.graphics.setColor(0, 0, 0)
    	love.graphics.setFont(font_low)
-   	love.graphics.print( "fase : 1", width- 100, 20)
-
+   	love.graphics.print( "fase : 2", width- 100, 20)
 	-------------------------------flag--------------------------------------
 
 	love.graphics.setColor(255,255,255)
@@ -236,19 +237,19 @@ function stage1_draw()
   		love.graphics.setColor(255, 255, 255)
   		love.graphics.draw(star.spriteSheet, star.quads[spriteNum], x_star1, y_star1, 0, 1)
   	else love.graphics.setColor(0, 0, 0,opacity1)
-  		love.graphics.print( score, x_score_1, y_score_1)
+  		love.graphics.print( score_2, x_score_2_1, y_score_2_1)
   	end
   	if not star_2_collision then
   		love.graphics.setColor(255, 255, 255)
   		love.graphics.draw(star.spriteSheet, star.quads[spriteNum], x_star2, y_star2, 0, 1)
   	else love.graphics.setColor(0, 0, 0,opacity2)
-  		love.graphics.print( score, x_score_2, y_score_2)
+  		love.graphics.print( score_2, x_score_2_2, y_score_2_2)
   	end
   	if not star_3_collision then
   		love.graphics.setColor(255, 255, 255)
   		love.graphics.draw(star.spriteSheet, star.quads[spriteNum], x_star3, y_star3, 0, 1)
   	else love.graphics.setColor(0, 0, 0,opacity3)
-  		love.graphics.print( score, x_score_3, y_score_3)
+  		love.graphics.print( score_2, x_score_2_3, y_score_2_3)
   	end
   	love.graphics.setColor(255, 255, 255)
 end
