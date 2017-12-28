@@ -1,11 +1,4 @@
 function menu_load()
-	play_button = love.graphics.newImage("images/play-button.png")
-	play_button_pressed = love.graphics.newImage("images/play-button_pressed.png")
-	help_button = love.graphics.newImage("images/help-button.png")
-	help_button_pressed = love.graphics.newImage("images/help-button_pressed.png")
-	exit_button = love.graphics.newImage("images/exit-button.png")
-	exit_button_pressed = love.graphics.newImage("images/exit-button_pressed.png")
-
 	pressed = false
 
 	x_play_button=(width/2) - 100
@@ -21,14 +14,25 @@ function menu_load()
 	exit_pressed= false
 	total_score = 0
 	score = 0
-	score_2 = 0
+	final_score = 0
+	score_update = false
 end
 
 function menu_update(dt)
 	--[[if love.keyboard.isDown("escape") then
 		love.window.close( )
 	end--]]
-	total_score = score + score_2
+	------------------para somar e subtrair score-----------------------
+	if score_update then
+		total_score = score + final_score 
+		score_update = false
+	end
+	if fail  then 
+		total_score =  total_score - final_score
+		score_update = true
+	end
+
+
 	x_mouse, y_mouse = love.mouse.getPosition( )
 	if stage == 0 then
 		function love.mousereleased(x, y, button)

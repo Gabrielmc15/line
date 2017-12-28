@@ -5,7 +5,9 @@ require "files/checaToque"
 require "files/menu"
 require "files/nextMenu"
 require "files/animation"
+require "files/media"
 function love.load()
+	images_load()
 	conf_load()
 	menu_load()
 	animation_load()

@@ -1,43 +1,28 @@
 function nextMenu_load()
-	next_menu = love.graphics.newImage("images/next-menu.png")
 	x_menu= (width/2)-(449/2)
 	y_menu= height +20
 
-	next_menu_fail = love.graphics.newImage("images/next-menu_fail.png")
 	x_menu_fail = x_menu
 	y_menu_fail = y_menu
 
-	next_button = love.graphics.newImage("images/next-button.png")
-	next_button_pressed = love.graphics.newImage("images/next-button_pressed.png")
 	x_next_button = x_menu + 250
 	y_next_button = y_menu + 400
 	next_pressed = false
 	
-	try_again_button = love.graphics.newImage("images/tentar-novamente-button.png")
-	try_again_button_pressed = love.graphics.newImage("images/tentar-novamente-button_pressed.png")
 	x_try_again_button = x_menu_fail + 190
 	y_try_again_button = y_menu_fail + 400
 	try_again_pressed = false
-
-	menu_button = love.graphics.newImage("images/menu-button.png")
-	menu_button_pressed = love.graphics.newImage("images/menu-button_pressed.png")
 
 	x_menu_button = x_menu +50
 	y_menu_button = y_menu +400
 	menu_pressed = false 
 	----------------------------score stars---------------------------------------
-	score_star_1 = love.graphics.newImage("images/score_star.png")
-	score_star__1_full = love.graphics.newImage("images/score_star_full.png")
 	x_score_star_1 = x_menu+20
 	y_score_star_1 = y_menu +300
 
-	score_star_2 = love.graphics.newImage("images/score_star.png")
-	score_star__2full = love.graphics.newImage("images/score_star_full.png")
 	x_score_star_2 = x_menu + 120
 	y_score_star_2 = y_menu +300
 
-	score_star_3 = love.graphics.newImage("images/score_star.png")
-	score_star__3_full = love.graphics.newImage("images/score_star_full.png")
 	x_score_star_3 = x_menu + 220
 	y_score_star_3 = y_menu +300
 
@@ -117,6 +102,9 @@ function nextMenu_update(dt)
 			menu_pressed = true
 			if pressed then 
 				stage = 0
+				score = 0
+				final_score = 0
+				score_update = true
 				stage_1_play = true
 				objects.ball.body:setActive( false )
 				pressed = false
@@ -139,6 +127,7 @@ function nextMenu_update(dt)
 		if checaToqueRectangle(x_mouse,y_mouse, x_try_again_button, y_try_again_button, 239, 40) then
 			try_again_pressed = true
 			if pressed then 
+				fail = true
 				if stage == 1 then
 				world:destroy( )
 				stage1_load()
@@ -190,7 +179,7 @@ function nextMenu_draw()
    	 	end
 		
 		if pontuacao >= 250 then
-			love.graphics.draw(score_star__2full, x_score_star_2, y_score_star_2, 0, 1, 1, 64, 64)
+			love.graphics.draw(score_star__2_full, x_score_star_2, y_score_star_2, 0, 1, 1, 64, 64)
 		else love.graphics.draw(score_star_2, x_score_star_2, y_score_star_2, 0, 1, 1, 64, 64)
 		end
 		if pontuacao >= 400  then
