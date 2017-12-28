@@ -7,4 +7,5 @@ function conf_load()
 	stage= 0 ---------mude isso aqui depois gabriel
 	font = love.graphics.newFont( "font/antiqua.ttf",48)
 	font_low = love.graphics.newFont( "font/antiqua.ttf",24)
+	love.window.setTitle( "LINE" )
 end

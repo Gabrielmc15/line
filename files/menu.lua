@@ -5,12 +5,12 @@ function menu_load()
 	y_play_button=(height/2) +100
 	play_pressed= false
 
-	x_help_button=(width/2) - 100
-	y_help_button=y_play_button + 70
-	help_pressed= false
+	x_scores_button=(width/2) - 100
+	y_scores_button=y_play_button + 70
+	scores_pressed= false
 
 	x_exit_button=(width/2)-100
-	y_exit_button=y_help_button + 70
+	y_exit_button=y_scores_button + 70
 	exit_pressed= false
 	total_score = 0
 	score = 0
@@ -28,7 +28,6 @@ function menu_update(dt)
 		score_update = false
 	end
 	if fail  then 
-		total_score =  total_score - final_score
 		score_update = true
 	end
 
@@ -37,7 +36,7 @@ function menu_update(dt)
 	if stage == 0 then
 		function love.mousereleased(x, y, button)
 			if stage == 0 then
-				if button == 1 and (checaToqueRectangle(x_mouse,y_mouse, x_play_button, y_play_button, 200, 50) or checaToqueRectangle(x_mouse,y_mouse, x_help_button, y_help_button, 200, 50) or checaToqueRectangle(x_mouse,y_mouse, x_exit_button, y_exit_button, 200, 50) ) then
+				if button == 1 and (checaToqueRectangle(x_mouse,y_mouse, x_play_button, y_play_button, 200, 50) or checaToqueRectangle(x_mouse,y_mouse, x_scores_button, y_scores_button, 200, 50) or checaToqueRectangle(x_mouse,y_mouse, x_exit_button, y_exit_button, 200, 50) ) then
 					pressed = true
 					else pressed = false
 				end
@@ -52,14 +51,14 @@ function menu_update(dt)
 			end
 			else play_pressed = false
 		end
-		--botao ajuda menu
-		if checaToqueRectangle(x_mouse,y_mouse, x_help_button, y_help_button, 200, 50) then
-			help_pressed = true
+		--botao scores menu
+		if checaToqueRectangle(x_mouse,y_mouse, x_scores_button, y_scores_button, 200, 50) then
+			scores_pressed = true
 			if pressed then
-				stage = 1
+				stage = 0
 				pressed= false
 			end
-			else help_pressed = false
+			else scores_pressed = false
 		end
 		--botao sair
 		if checaToqueRectangle(x_mouse,y_mouse, x_exit_button, y_exit_button, 200, 50) then
@@ -79,9 +78,9 @@ function menu_draw()
 			love.graphics.draw(play_button, x_play_button, y_play_button)
 		else love.graphics.draw(play_button_pressed, x_play_button, y_play_button)
 		end
-		if not help_pressed then
-			love.graphics.draw(help_button, x_help_button, y_help_button)
-		else love.graphics.draw(help_button_pressed, x_help_button, y_help_button)
+		if not scores_pressed then
+			love.graphics.draw(scores_button, x_scores_button, y_scores_button)
+		else love.graphics.draw(scores_button_pressed, x_scores_button, y_scores_button)
 		end
 		if not exit_pressed then
 			love.graphics.draw(exit_button, x_exit_button, y_exit_button)

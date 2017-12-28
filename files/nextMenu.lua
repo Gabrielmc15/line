@@ -116,7 +116,7 @@ function nextMenu_update(dt)
 		if checaToqueRectangle(x_mouse,y_mouse, x_next_button, y_next_button, 148, 40) then
 			next_pressed = true
 			if pressed then
-				stage = 2
+				stage = stage + 1
 				stage_2_play = true
 				objects.ball.body:setActive( false )
 				pressed = false

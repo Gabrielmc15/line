@@ -7,11 +7,14 @@ function stage1_load()
 	objects.platform_right.shape = love.physics.newRectangleShape(300, 50)
 	objects.platform_right.fixture = love.physics.newFixture(objects.platform_right.body, objects.platform_right.shape)
 	--------------------------------ball--------------------------------------------------
-	x_stage_play_button= width/2 - 64
+	x_stage_play_button= width/2 - 32
 	y_stage_play_button= height-74
 
 	x_stage_replay_button = x_stage_play_button + 74
 	y_stage_replay_button = y_stage_play_button
+
+	x_stage_help_button =  x_stage_play_button - 77
+	y_stage_help_button = y_stage_play_button
 
 	objects.ball = {}
 	objects.ball.body = love.physics.newBody(world, 110,(height/4)-47, "dynamic")
@@ -21,6 +24,8 @@ function stage1_load()
 	rotation = math.pi
 	stage_play = true --controle
 	stage_replay=true -- controle
+	stage_help = true
+	help = false
 	-------------------------line---------------------------------------------------------
 	mouse_positions = {}
 	size = 4,5
@@ -78,6 +83,7 @@ function stage1_update(dt)
 	if objects.ball.body:getY() > 950 then
 		fail = true
 	end
+
 	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_flag+21, y_flag, x_flag+109, 128) then
 		passou= true
 		final_score  = score
@@ -128,6 +134,23 @@ function stage1_update(dt)
 				score_update = true
 			end
 		end
+
+		if checarToqueCircle(x_mouse, y_mouse, x_stage_help_button+32, y_stage_help_button+32, 32 ) then
+			love.mouse.setVisible(true)
+			if love.mouse.isDown(1) and stage_help and not passou and  not fail and stage_play then
+				help = true
+				stage_help = false
+				stage_play=false
+				draw = false
+			end
+		end
+		if love.keyboard.isDown("escape") and help and not stage_help then
+			help = false
+			stage_help = true
+			draw = true
+			stage_play=true
+		end
+	
 
 		if not passou then
 			rotation=rotation+velocX_bola/1000
@@ -214,12 +237,15 @@ function stage1_draw()
 	love.graphics.draw(stage_play_button, x_stage_play_button, y_stage_play_button)
 	love.graphics.circle( "fill", x_stage_replay_button+32, y_stage_replay_button+32, 32 )
 	love.graphics.draw(stage_replay_button, x_stage_replay_button, y_stage_replay_button)
-
+	love.graphics.circle( "fill", x_stage_help_button+32, y_stage_help_button+32, 32 )
+	love.graphics.draw(stage_help_button, x_stage_help_button, y_stage_help_button)
+	
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.polygon("fill", objects.platform_right.body:getWorldPoints(objects.platform_right.shape:getPoints()))
-	--love.graphics.setColor(255, 0, 0, 150)
 	love.graphics.setColor(255, 255, 255)
 	love.graphics.draw(ball, objects.ball.body:getX(), objects.ball.body:getY(),rotation, 1, 1, 21, 21)
+
+
 
 -----------------------------stars----------------------------------------
 
@@ -245,4 +271,26 @@ function stage1_draw()
   		love.graphics.print( score, x_score_3, y_score_3)
   	end
   	love.graphics.setColor(255, 255, 255)
+  	--------------------------help-----------------------------------------
+  	if help then
+		love.graphics.setColor(255, 255, 255)
+		love.graphics.rectangle( "fill", (width/3 - 75), (height/10) , 700 , (height*4/10))
+		love.graphics.setColor(0, 0, 0)
+		love.graphics.rectangle( "line", (width/3- 75), (height/10) , 700 , (height*4/10))
+		love.graphics.print( "* Use o mouse para desenhar na tela", (width/3- 75) + 15 , (height/10) + 25)
+		love.graphics.print( "* O objetivo é fazer com que a bola toque na bandeira", (width/3- 75) + 15, (height/10) + 50)
+		love.graphics.print( " para cada estrela você ganha 100 pontos e para cada ", (width/3- 75) + 40, (height/10) + 75)
+		love.graphics.print( "  estrela extra você ganha + 50 pontos ", (width/3- 75) + 15 , (height/10) + 100)
+		love.graphics.print( 'O botão "play" impulsiona a bola na direção da seta', (width/3- 75) + 50 , (height/10) + 135)
+		love.graphics.print( 'O botão "replay" reinicia a fase', (width/3- 75) + 50 , (height/10) + 170)
+		love.graphics.print( " No decorrer do jogo novos objetos e novas interações irão", (width/3- 75) + 50 , (height/10) + 205)
+		love.graphics.print( 'aparecer, então quando precisar de ajuda clique no botão "help"', (width/3- 75) + 15 , (height/10) + 230)
+		love.graphics.print( '"esc" para sair do menu de ajuda', 350 + (width/3 - 75) , (height/10)+ (height*4/10) -50 )
+		love.graphics.setColor(255, 255, 255)
+		love.graphics.draw(star.spriteSheet, star.quads[spriteNum], (width/3- 75) + 15 , (height/10) + 75, 0, 1)
+		love.graphics.draw( stage_play_button, (width/3- 75) + 15 , (height/10) + 130, 0, 1/2, 1/2)
+		love.graphics.draw( stage_replay_button, (width/3- 75) + 15 , (height/10) + 170, 0, 1/2, 1/2)
+		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 205, 0, 1/2, 1/2)
+	end
 end
+

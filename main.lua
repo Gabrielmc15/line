@@ -4,7 +4,6 @@ require "files/stage2"
 require "files/checaToque"
 require "files/menu"
 require "files/nextMenu"
-require "files/animation"
 require "files/media"
 function love.load()
 	images_load()
@@ -35,6 +34,13 @@ function love.update(dt)
 			stage_2_play = false
 		end
 		stage2_update(dt)
+	end
+	if stage > 2 then 
+		stage = 0
+		score = 0
+		final_score = 0
+		score_update = true
+		stage_1_play = true
 	end
 end
  
