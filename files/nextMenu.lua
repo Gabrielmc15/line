@@ -129,12 +129,16 @@ function nextMenu_update(dt)
 			if pressed then 
 				fail = true
 				if stage == 1 then
-				world:destroy( )
+				world_1:destroy( )
 				stage1_load()
 				nextMenu_load()
 				elseif stage == 2 then
 					world_2:destroy( )
 					stage2_load()
+					nextMenu_load()
+				elseif stage == 3 then
+					world_3:destroy( )
+					stage3_load()
 					nextMenu_load()
 				end
 				pressed = false

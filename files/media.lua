@@ -26,6 +26,7 @@ function images_load()
 	score_star__3_full = love.graphics.newImage("images/score_stars/score_star_full.png")
 
 	-------------------------------------ball---------------------------------------------
+	arrow_right= love.graphics.newImage("images/ball/arrow-right.png")
 	stage_play_button= love.graphics.newImage("images/ball/stage-play-button.png")
 	stage_replay_button= love.graphics.newImage("images/ball/stage-replay-button.png")
 	stage_help_button= love.graphics.newImage("images/ball/stage-help-button.png")
@@ -33,7 +34,8 @@ function images_load()
 	beach_ball = love.graphics.newImage("images/ball/beach-ball.png")
 
 	-------------------------------------flag-------------------------------------------
-	flag = love.graphics.newImage("images/flag.png")
+	flag = love.graphics.newImage("images/scenario/flag.png")
+	booster = love.graphics.newImage("images/scenario/speed-booster.png")
 end
 
 

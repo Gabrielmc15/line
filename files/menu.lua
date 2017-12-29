@@ -12,6 +12,7 @@ function menu_load()
 	x_exit_button=(width/2)-100
 	y_exit_button=y_scores_button + 70
 	exit_pressed= false
+	------------------------variaveis necessarias---------------
 	total_score = 0
 	score = 0
 	final_score = 0
@@ -91,6 +92,7 @@ function menu_draw()
 		love.graphics.setColor(0, 0, 0)
    		love.graphics.setFont(font_low)
 		love.graphics.print( "pontuação total: " .. total_score, width- 250, 45)
+		love.graphics.print( "fase : " .. stage , width- 100, 20)
 		love.graphics.setColor(255, 255, 255)
 	end
 end
