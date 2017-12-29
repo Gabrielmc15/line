@@ -171,6 +171,7 @@ function stage1_update(dt)
 		y_score_1 = y_star1
 		opacity1=255
 		score_update = true
+		love.audio.play( pick_star )
 	end
 	y_score_1 = y_score_1 -4
 	opacity1 = opacity1 -10
@@ -181,6 +182,7 @@ function stage1_update(dt)
 		y_score_2 = y_star2
 		opacity2 = 255
 		score_update = true
+		love.audio.play( pick_star )
 	end
 	y_score_2 = y_score_2 -4
 	opacity2 = opacity2 -10
@@ -191,6 +193,7 @@ function stage1_update(dt)
 		y_score_3 = y_star3
 		opacity3 = 255
 		score_update = true
+		love.audio.play( pick_star )
 	end
 	y_score_3 = y_score_3 -4
 	opacity3 = opacity3 -10

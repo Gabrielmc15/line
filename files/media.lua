@@ -37,6 +37,9 @@ function images_load()
 	-------------------------------------flag-------------------------------------------
 	flag = love.graphics.newImage("images/scenario/flag.png")
 	booster = love.graphics.newImage("images/scenario/speed-booster.png")
+
+	-------------------------------------audios----------------------------------------
+	pick_star = love.audio.newSource("audio/pick_star.wav")
 end
 
 
