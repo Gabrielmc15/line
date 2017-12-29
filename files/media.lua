@@ -32,6 +32,7 @@ function images_load()
 	stage_help_button= love.graphics.newImage("images/ball/stage-help-button.png")
 	ball = love.graphics.newImage("images/ball/ball.png")
 	beach_ball = love.graphics.newImage("images/ball/beach-ball.png")
+	golf_ball =love.graphics.newImage("images/ball/golf-ball.png") 
 
 	-------------------------------------flag-------------------------------------------
 	flag = love.graphics.newImage("images/scenario/flag.png")

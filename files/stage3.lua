@@ -1,5 +1,5 @@
 function stage3_load()
-	world_3 = love.physics.newWorld(0, 10*64, true)
+	world_3 = love.physics.newWorld(0, 8*64, true)
 	objects = {}
 	---------------------------------platform--------------------------------------------------------
 	objects.platform_right = {}
@@ -59,7 +59,7 @@ function stage3_load()
 	star_2_collision = false
 
 	x_star3= width/2
-	y_star3= height -575
+	y_star3= height -675
 	star_3_collision = false
 	stars={}
 	for i=1,4 do
