@@ -85,4 +85,36 @@ function newstar(image, width, height, duration)
 
     return star
 end
----------------------------------------------------------------------------------------
+-------------------------------------animacao do ventilador--------------------------------------------------
+function animation_fan_load()
+    fan = newfan(love.graphics.newImage("images/scenario/fan.png"), 141, 63, 0.5)
+end
+
+function animation_fan_update(dt)
+    fan.currentTime = fan.currentTime + dt
+    if fan.currentTime >= fan.duration then
+        fan.currentTime = fan.currentTime - fan.duration
+    end
+end
+
+function animation_fan_draw()
+    local spriteNum = math.floor(fan.currentTime / fan.duration * #fan.quads) + 1
+    love.graphics.draw(fan.spriteSheet, fan.quads[spriteNum], 100, 100, 0, 1)
+end
+
+function newfan(image, width, height, duration)
+    local fan = {}
+    fan.spriteSheet = image;
+    fan.quads = {};
+
+    for y = 0, image:getHeight() - height, height do
+        for x = 0, image:getWidth() - width, width do
+            table.insert(fan.quads, love.graphics.newQuad(x, y, width, height, image:getDimensions()))
+        end
+    end
+
+    fan.duration = duration or 1
+    fan.currentTime = 0
+
+    return fan
+end

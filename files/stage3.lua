@@ -255,7 +255,6 @@ function stage3_draw()
 
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(flag, x_flag, y_flag)
-
 -------------------------------line------------------------------------
 
 	for i = 1, #mouse_positions do
@@ -308,6 +307,9 @@ function stage3_draw()
   		love.graphics.print( score, x_score_3, y_score_3)
   	end
   	love.graphics.setColor(255, 255, 255)
+  	---------------------------------fan---------------------------------------------
+  	local spriteNum = math.floor(fan.currentTime / fan.duration * #fan.quads) + 1
+    love.graphics.draw(fan.spriteSheet, fan.quads[spriteNum], width/2, height/2, 0, 1)
   	--------------------------help-----------------------------------------
   	if help then
 		love.graphics.setColor(255, 255, 255)

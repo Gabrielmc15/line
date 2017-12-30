@@ -12,11 +12,13 @@ function love.load()
 	conf_load()
 	menu_load()
 	animation_load()
+	animation_fan_load()
 end
 
 function love.update(dt)
 	menu_update(dt)
 	animation_update(dt)
+	animation_fan_update(dt)
 	nextMenu_update(dt)
 	if stage == 1 then
 		if stage_1_play then
@@ -49,7 +51,7 @@ function love.update(dt)
 end
  
 function love.draw()
-		menu_draw()
+	menu_draw()
 	if stage == 1 then
 		stage1_draw()
 	elseif stage == 2 then
