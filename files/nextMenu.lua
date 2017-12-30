@@ -56,7 +56,6 @@ function nextMenu_update(dt)
 		x_score_star_3 = x_menu + 360
 		y_score_star_3 = y_menu +250
 
-		
 		-- algoritmo para o menu se passou
 		if passou then
 			y_menu = y_menu-20
@@ -65,9 +64,7 @@ function nextMenu_update(dt)
 		if y_menu < (height/2)-(250) then
 			y_menu = (height/2)-(250)
 			next_menu_active = true
-
 			love.audio.play( score_count )
-			
 			if pontuacao < score then
 				pontuacao = pontuacao+3
 				if pontuacao > 100 and pontuacao < 450 then
@@ -84,6 +81,7 @@ function nextMenu_update(dt)
 			end
 		else next_menu_active = false
 		end
+
 		--algoritmo para o menu se falhou
 		if fail then
 			y_menu_fail = y_menu_fail -20
@@ -112,12 +110,8 @@ function nextMenu_update(dt)
 		if checaToqueRectangle(x_mouse,y_mouse, x_menu_button, y_menu_button, 105, 40) then
 			menu_pressed = true
 			if pressed then 
-				stage = 0
-				score = 0
-				final_score = 0
-				score_update = true
-				stage_1_play = true
-				objects.ball.body:setActive( false )
+				love.audio.stop( score_count )
+				menu_load()
 				pressed = false
 			end
 			else menu_pressed = false
@@ -128,12 +122,12 @@ function nextMenu_update(dt)
 			next_pressed = true
 			if pressed then
 				stage = stage + 1
-				stage_2_play = true
-				objects.ball.body:setActive( false )
 				pressed = false
+				love.audio.stop( score_count )
 			end
 			else next_pressed = false
 		end
+
 		--try again
 		if checaToqueRectangle(x_mouse,y_mouse, x_try_again_button, y_try_again_button, 239, 40) then
 			try_again_pressed = true
@@ -142,15 +136,15 @@ function nextMenu_update(dt)
 				if stage == 1 then
 				world_1:destroy( )
 				stage1_load()
-				nextMenu_load()
 				elseif stage == 2 then
 					world_2:destroy( )
-					stage2_load()
-					nextMenu_load()
+					stage2_load()				
 				elseif stage == 3 then
 					world_3:destroy( )
 					stage3_load()
-					nextMenu_load()
+				elseif stage == 4 then
+					world_4:destroy( )
+					stage4_load()
 				end
 				pressed = false
 			end
@@ -164,7 +158,6 @@ function nextMenu_draw()
 		love.graphics.setColor(255,255,255)
 		love.graphics.draw(next_menu_fail, x_menu_fail, y_menu_fail)
 		love.graphics.draw(next_menu, x_menu, y_menu)
-
 		-------------------------------desenhar os botoes-------------------------------------------------------------------
 		--menu
 		if not menu_pressed then
@@ -201,7 +194,6 @@ function nextMenu_draw()
 			love.graphics.draw(score_star__3_full, x_score_star_3, y_score_star_3, -0.523, 1, 1, 64, 64)
 		else love.graphics.draw(score_star_3, x_score_star_3, y_score_star_3, -0.523, 1, 1, 64, 64)
 		end
-   	 	--love.graphics.print( result, x_menu+120, y_menu +175)
    	 	love.graphics.setColor(255,255,255)
 	end
 end

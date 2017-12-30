@@ -27,9 +27,13 @@ function images_load()
 
 	-------------------------------------ball---------------------------------------------
 	arrow_right= love.graphics.newImage("images/ball/arrow-right.png")
+	arrow_left= love.graphics.newImage("images/ball/arrow-left.png")
+
 	stage_play_button= love.graphics.newImage("images/ball/stage-play-button.png")
 	stage_replay_button= love.graphics.newImage("images/ball/stage-replay-button.png")
 	stage_help_button= love.graphics.newImage("images/ball/stage-help-button.png")
+	stage_arrow_button = love.graphics.newImage("images/ball/stage-arrow-button.png")
+
 	ball = love.graphics.newImage("images/ball/ball.png")
 	beach_ball = love.graphics.newImage("images/ball/beach-ball.png")
 	golf_ball =love.graphics.newImage("images/ball/golf-ball.png") 

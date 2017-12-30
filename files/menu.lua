@@ -1,5 +1,7 @@
 function menu_load()
 	pressed = false
+	nextMenu_load()
+	stage = 0
 
 	x_play_button=(width/2) - 100
 	y_play_button=(height/2) +100
@@ -17,6 +19,11 @@ function menu_load()
 	score = 0
 	final_score = 0
 	score_update = false
+	-------------------------controle das fases-----------------
+	stage_1_play = true
+	stage_2_play = true
+	stage_3_play = true
+	stage_4_play = true
 end
 
 function menu_update(dt)
@@ -31,7 +38,6 @@ function menu_update(dt)
 	if fail  then 
 		score_update = true
 	end
-
 
 	x_mouse, y_mouse = love.mouse.getPosition( )
 	if stage == 0 then

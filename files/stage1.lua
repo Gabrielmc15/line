@@ -1,4 +1,6 @@
 function stage1_load()
+	stage_1_play = false
+	nextMenu_load()
 	world_1 = love.physics.newWorld(0, 5*64, true)
 	objects = {}
 	---------------------------------platform--------------------------------------------
@@ -7,6 +9,15 @@ function stage1_load()
 	objects.platform_right.shape = love.physics.newRectangleShape(300, 50)
 	objects.platform_right.fixture = love.physics.newFixture(objects.platform_right.body, objects.platform_right.shape)
 	--------------------------------ball--------------------------------------------------
+	objects.ball = {}
+	objects.ball.body = love.physics.newBody(world_1, 210,(height/4)-47, "dynamic")
+	objects.ball.shape = love.physics.newCircleShape(21)
+	objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape)
+	x_ball, y_ball = objects.ball.body:getX(), objects.ball.body:getY()
+	objects.ball.body:setActive( false )
+	rotation = math.pi
+
+	--------------------------------side bar--------------------------------------------------
 	x_stage_play_button= 15
 	y_stage_play_button= 50
 
@@ -16,19 +27,9 @@ function stage1_load()
 	x_stage_help_button =  x_stage_play_button 
 	y_stage_help_button = height - 75
 
-
-	objects.ball = {}
-	objects.ball.body = love.physics.newBody(world_1, 210,(height/4)-47, "dynamic")
-	objects.ball.shape = love.physics.newCircleShape(21)
-	objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape)
-	x_ball, y_ball = objects.ball.body:getX(), objects.ball.body:getY()
-	objects.ball.body:setActive( false )
-
 	x_arrow_right =  x_ball + 40
 	y_arrow_right =  y_ball - 35
 
-
-	rotation = math.pi
 	stage_play = true --controle
 	stage_replay=true -- controle
 	stage_help = true
@@ -77,6 +78,7 @@ function stage1_load()
 	opacity2 = 255
 	opacity3 = 255
 end
+
 function stage1_update(dt)
 	world_1:update(dt)
 	x, y = love.mouse.getPosition( )
@@ -90,7 +92,6 @@ function stage1_update(dt)
 		final_score  = total_score
 		objects.ball.body:setActive( false )
 	end
-
 
 	------------------------line-----------------------------------------
 
@@ -156,15 +157,11 @@ function stage1_update(dt)
 			draw = true
 			stage_play=true
 		end
-	
-
 		if not passou then
 			rotation=rotation+velocX_bola/1000
 		end
 	end
-
 	-----------------------------score------------------------------
-
 	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_star1-15, y_star1-15, 60, 60) and not star_1_collision then
 		stars[1]= 100
 		star_1_collision = true
@@ -221,12 +218,10 @@ function stage1_draw()
    	love.graphics.setFont(font_low)
 
 	-------------------------------flag--------------------------------------
-
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(flag, x_flag, y_flag)
 
--------------------------------line------------------------------------
-
+	-------------------------------line------------------------------------
 	for i = 1, #mouse_positions do
 		obj = mouse_positions[i]
 
@@ -239,7 +234,7 @@ function stage1_draw()
 	end
 	love.graphics.setColor(255, 255, 255)
 
-------------------------------ball--------------------------------------
+	------------------------------ball--------------------------------------
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.polygon("fill", objects.platform_right.body:getWorldPoints(objects.platform_right.shape:getPoints()))
 	love.graphics.setColor(255, 255, 255)
@@ -248,9 +243,7 @@ function stage1_draw()
 		love.graphics.draw( arrow_right, x_arrow_right, y_arrow_right)
 	end
 
-
------------------------------stars----------------------------------------
-
+	-----------------------------stars----------------------------------------
 	love.graphics.setFont(font_low)
 	love.graphics.setColor(255, 255, 255)
 	local spriteNum = math.floor(star.currentTime / star.duration * #star.quads) + 1
@@ -273,6 +266,7 @@ function stage1_draw()
   		love.graphics.print( score, x_score_3, y_score_3)
   	end
   	love.graphics.setColor(255, 255, 255)
+
   	--------------------------help-----------------------------------------
   	if help then
 		love.graphics.setColor(255, 255, 255)
@@ -301,11 +295,8 @@ function stage1_draw()
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle( "line", -10, -10 , 100 , height+10)
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.circle( "fill", x_stage_play_button+32, y_stage_play_button+32, 32 )
 	love.graphics.draw(stage_play_button, x_stage_play_button, y_stage_play_button)
-	love.graphics.circle( "fill", x_stage_replay_button+32, y_stage_replay_button+32, 32 )
 	love.graphics.draw(stage_replay_button, x_stage_replay_button, y_stage_replay_button)
-	love.graphics.circle( "fill", x_stage_help_button+32, y_stage_help_button+32, 32 )
 	love.graphics.draw(stage_help_button, x_stage_help_button, y_stage_help_button)
 end
 

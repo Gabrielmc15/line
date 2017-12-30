@@ -1,4 +1,6 @@
 function stage2_load()
+	stage_2_play = false
+	nextMenu_load()
 	world_2 = love.physics.newWorld(0, 5*64, true)
 	objects = {}
 	---------------------------------platform--------------------------------------------
@@ -7,6 +9,15 @@ function stage2_load()
 	objects.platform_right.shape = love.physics.newRectangleShape(300, 50)
 	objects.platform_right.fixture = love.physics.newFixture(objects.platform_right.body, objects.platform_right.shape)
 	--------------------------------ball--------------------------------------------------
+	objects.ball = {}
+	objects.ball.body = love.physics.newBody(world_2, 210,(height*3/4)-47, "dynamic")
+	objects.ball.shape = love.physics.newCircleShape(21)
+	objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape)
+	x_ball, y_ball = objects.ball.body:getX(), objects.ball.body:getY()
+	objects.ball.body:setActive( false )
+	rotation = math.pi
+
+	--------------------------------side bar--------------------------------------------------
 	x_stage_play_button= 15
 	y_stage_play_button= 50
 
@@ -16,19 +27,9 @@ function stage2_load()
 	x_stage_help_button =  x_stage_play_button 
 	y_stage_help_button = height - 75
 
-
-	objects.ball = {}
-	objects.ball.body = love.physics.newBody(world_2, 210,(height*3/4)-47, "dynamic")
-	objects.ball.shape = love.physics.newCircleShape(21)
-	objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape)
-	x_ball, y_ball = objects.ball.body:getX(), objects.ball.body:getY()
-	objects.ball.body:setActive( false )
-
 	x_arrow_right =  x_ball + 40
 	y_arrow_right =  y_ball - 35
 
-
-	rotation = math.pi
 	stage_play = true --controle
 	stage_replay=true -- controle
 	stage_help = true
@@ -297,16 +298,14 @@ love.graphics.draw( booster, x_booster_2, y_booster_2,  math.rad(-20))
 		love.graphics.print( "* O objetivo é fazer com que a bola toque na bandeira", (width/3- 75) + 15, (height/10) + 50)
 		love.graphics.print( " para cada estrela você ganha 100 pontos e para cada ", (width/3- 75) + 40, (height/10) + 75)
 		love.graphics.print( "  estrela extra você ganha + 50 pontos ", (width/3- 75) + 15 , (height/10) + 100)
-		love.graphics.print( 'O botão "play" impulsiona a bola na direção da seta', (width/3- 75) + 50 , (height/10) + 135)
-		love.graphics.print( 'O botão "replay" reinicia a fase', (width/3- 75) + 50 , (height/10) + 170)
-		love.graphics.print( " No decorrer do jogo novos objetos e novas interações irão", (width/3- 75) + 50 , (height/10) + 205)
-		love.graphics.print( 'aparecer, então quando precisar de ajuda clique no botão "help"', (width/3- 75) + 15 , (height/10) + 230)
+		love.graphics.print( 'O booster dá um impulso de velocidade para a bola', (width/3- 75) + 50 , (height/10) + 132)
+		love.graphics.print( " No decorrer do jogo novos objetos e novas interações irão", (width/3- 75) + 50 , (height/10) + 163)
+		love.graphics.print( 'aparecer, então quando precisar de ajuda clique no botão "help"', (width/3- 75) + 15 , (height/10) + 230-43)
 		love.graphics.print( '"esc" para sair do menu de ajuda', 350 + (width/3 - 75) , (height/10)+ (height*4/10) -50 )
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.draw(star.spriteSheet, star.quads[spriteNum], (width/3- 75) + 15 , (height/10) + 75, 0, 1)
-		love.graphics.draw( stage_play_button, (width/3- 75) + 15 , (height/10) + 130, 0, 1/2, 1/2)
-		love.graphics.draw( stage_replay_button, (width/3- 75) + 15 , (height/10) + 170, 0, 1/2, 1/2)
-		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 205, 0, 1/2, 1/2)
+		love.graphics.draw( booster, (width/3- 75) + 15 , (height/10) + 130, 0, 1/2, 1/2)
+		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 163, 0, 1/2, 1/2)
 	end
 
 	-------------------------side bar--------------------------------------
@@ -315,11 +314,8 @@ love.graphics.draw( booster, x_booster_2, y_booster_2,  math.rad(-20))
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle( "line", -10, -10 , 100 , height+10)
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.circle( "fill", x_stage_play_button+32, y_stage_play_button+32, 32 )
 	love.graphics.draw(stage_play_button, x_stage_play_button, y_stage_play_button)
-	love.graphics.circle( "fill", x_stage_replay_button+32, y_stage_replay_button+32, 32 )
 	love.graphics.draw(stage_replay_button, x_stage_replay_button, y_stage_replay_button)
-	love.graphics.circle( "fill", x_stage_help_button+32, y_stage_help_button+32, 32 )
 	love.graphics.draw(stage_help_button, x_stage_help_button, y_stage_help_button)
 end
 
