@@ -41,14 +41,20 @@ function images_load()
 	-------------------------------------flag-------------------------------------------
 	flag = love.graphics.newImage("images/scenario/flag.png")
 	booster = love.graphics.newImage("images/scenario/speed-booster.png")
+end
 
+function audio_load()
 	-------------------------------------audios----------------------------------------
+	click = love.audio.newSource("audio/click.wav", "static")
 	pick_star = love.audio.newSource("audio/pick_star.wav", "static")
 	score_count = love.audio.newSource("audio/score_count.wav", "static")
 
+	win_sound = love.audio.newSource("audio/win_sound.wav", "static")
 	win_sound_1 = love.audio.newSource("audio/win_sound_1.wav", "static")
 	win_sound_2 = love.audio.newSource("audio/win_sound_2.wav", "static")
 	win_sound_3 = love.audio.newSource("audio/win_sound_3.wav", "static")
+
+	fan_sound = love.audio.newSource("audio/fan_fx.wav", "static")
 end
 
 
@@ -97,11 +103,6 @@ function animation_fan_update(dt)
     end
 end
 
-function animation_fan_draw()
-    local spriteNum = math.floor(fan.currentTime / fan.duration * #fan.quads) + 1
-    love.graphics.draw(fan.spriteSheet, fan.quads[spriteNum], 100, 100, 0, 1)
-end
-
 function newfan(image, width, height, duration)
     local fan = {}
     fan.spriteSheet = image;
@@ -117,4 +118,33 @@ function newfan(image, width, height, duration)
     fan.currentTime = 0
 
     return fan
+end
+
+-------------------------------------animacao do wind--------------------------------------------------
+function animation_wind_load()
+    wind = newwind(love.graphics.newImage("images/scenario/wind.png"), 96, 96, 0.5)
+end
+
+function animation_wind_update(dt)
+    wind.currentTime = wind.currentTime + dt
+    if wind.currentTime >= wind.duration then
+        wind.currentTime = wind.currentTime - wind.duration
+    end
+end
+
+function newwind(image, width, height, duration)
+    local wind = {}
+    wind.spriteSheet = image;
+    wind.quads = {};
+
+    for y = 0, image:getHeight() - height, height do
+        for x = 0, image:getWidth() - width, width do
+            table.insert(wind.quads, love.graphics.newQuad(x, y, width, height, image:getDimensions()))
+        end
+    end
+
+    wind.duration = duration or 1
+    wind.currentTime = 0
+
+    return wind
 end

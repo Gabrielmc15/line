@@ -1,6 +1,7 @@
 function stage1_load()
 	stage_1_play = false
 	nextMenu_load()
+	win_sound_playable = true
 	world_1 = love.physics.newWorld(0, 5*64, true)
 	objects = {}
 	---------------------------------platform--------------------------------------------
@@ -126,7 +127,7 @@ function stage1_update(dt)
 		end
 		if checarToqueCircle(x_mouse, y_mouse, x_stage_play_button+32, y_stage_play_button+32, 32 ) then
 			love.mouse.setVisible( true )
-			if love.mouse.isDown(1) and stage_play and not passou and  not fail then
+			if love.mouse.isDown(1) and stage_play and not passou and not fail then
 				objects.ball.body:applyForce(8000, 0)
 				objects.ball.body:setActive( true )
 				stage_play=false
@@ -144,7 +145,7 @@ function stage1_update(dt)
 
 		if checarToqueCircle(x_mouse, y_mouse, x_stage_help_button+32, y_stage_help_button+32, 32 ) then
 			love.mouse.setVisible(true)
-			if love.mouse.isDown(1) and stage_help and not passou and  not fail and stage_play then
+			if love.mouse.isDown(1) and stage_help and not passou and not fail and stage_play then
 				help = true
 				stage_help = false
 				stage_play=false

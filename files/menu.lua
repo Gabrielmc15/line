@@ -37,6 +37,10 @@ function menu_update(dt)
 	if fail  then 
 		score_update = true
 	end
+	if passou and win_sound_playable then
+		love.audio.play( win_sound )
+		win_sound_playable = false
+	end
 
 	x_mouse, y_mouse = love.mouse.getPosition( )
 	if stage == 0 then
@@ -54,6 +58,7 @@ function menu_update(dt)
 			if pressed then
 				stage = 1
 				pressed= false
+				love.audio.play( click )
 			end
 			else play_pressed = false
 		end
@@ -63,6 +68,7 @@ function menu_update(dt)
 			if pressed then
 				stage = 0
 				pressed= false
+				love.audio.play( click )
 			end
 			else scores_pressed = false
 		end
@@ -72,6 +78,7 @@ function menu_update(dt)
 			if pressed then
 				love.window.close( )
 				pressed= false
+				love.audio.play( click )
 			end
 			else exit_pressed = false
 		end

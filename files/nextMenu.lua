@@ -113,6 +113,7 @@ function nextMenu_update(dt)
 				love.audio.stop( score_count )
 				menu_load()
 				pressed = false
+				love.audio.play( click )
 			end
 			else menu_pressed = false
 		end
@@ -123,6 +124,7 @@ function nextMenu_update(dt)
 			if pressed then
 				stage = stage + 1
 				pressed = false
+				love.audio.play( click )
 				love.audio.stop( score_count )
 			end
 			else next_pressed = false
@@ -132,7 +134,8 @@ function nextMenu_update(dt)
 		if checaToqueRectangle(x_mouse,y_mouse, x_try_again_button, y_try_again_button, 239, 40) then
 			try_again_pressed = true
 			if pressed then 
-				fail = true
+				love.audio.play( click )
+				--fail = true
 				if stage == 1 then
 				world_1:destroy( )
 				stage1_load()

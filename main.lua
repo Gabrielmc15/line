@@ -9,39 +9,38 @@ require "files/nextMenu"
 require "files/media"
 function love.load()
 	images_load()
+	audio_load()
 	conf_load()
 	menu_load()
 	animation_load()
 	animation_fan_load()
+	animation_wind_load()
 end
 
 function love.update(dt)
 	menu_update(dt)
 	animation_update(dt)
 	animation_fan_update(dt)
+	animation_wind_update(dt)
 	nextMenu_update(dt)
 	if stage == 1 then
 		if stage_1_play then
 			stage1_load()
-			stage_1_play = false
 		end
 		stage1_update(dt)
 	elseif stage == 2 then
 		if stage_2_play then
 			stage2_load()
-			stage_2_play = false
 		end
 		stage2_update(dt)
 	elseif stage == 3 then
 		if stage_3_play then
 			stage3_load()
-			stage_3_play = false
 		end
 		stage3_update(dt)
 		elseif stage == 4 then
 		if stage_4_play then
 			stage4_load()
-			stage_4_play = false
 		end
 		stage4_update(dt)
 	end
