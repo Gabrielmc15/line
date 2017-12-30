@@ -23,22 +23,22 @@ function love.update(dt)
 	nextMenu_update(dt)
 	if stage == 1 then
 		if stage_1_play then
-			stage1_load()
 			nextMenu_load()
+			stage1_load()
 			stage_1_play = false
 		end
 		stage1_update(dt)
 	elseif stage == 2 then
 		if stage_2_play then
-			stage2_load()
 			nextMenu_load()
+			stage2_load()
 			stage_2_play = false
 		end
 		stage2_update(dt)
 	elseif stage == 3 then
 		if stage_3_play then
-			stage3_load()
 			nextMenu_load()
+			stage3_load()
 			stage_3_play = false
 		end
 		stage3_update(dt)

@@ -39,7 +39,12 @@ function images_load()
 	booster = love.graphics.newImage("images/scenario/speed-booster.png")
 
 	-------------------------------------audios----------------------------------------
-	pick_star = love.audio.newSource("audio/pick_star.wav")
+	pick_star = love.audio.newSource("audio/pick_star.wav", "static")
+	score_count = love.audio.newSource("audio/score_count.wav", "static")
+
+	win_sound_1 = love.audio.newSource("audio/win_sound_1.wav", "static")
+	win_sound_2 = love.audio.newSource("audio/win_sound_2.wav", "static")
+	win_sound_3 = love.audio.newSource("audio/win_sound_3.wav", "static")
 end
 
 

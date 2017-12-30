@@ -65,11 +65,22 @@ function nextMenu_update(dt)
 		if y_menu < (height/2)-(250) then
 			y_menu = (height/2)-(250)
 			next_menu_active = true
+
+			love.audio.play( score_count )
 			
 			if pontuacao < score then
 				pontuacao = pontuacao+3
+				if pontuacao > 100 and pontuacao < 450 then
+					love.audio.play( win_sound_1 )
+				elseif pontuacao == 450 then
+					love.audio.play( win_sound_3 )
+				end
+				if pontuacao > 250 then
+					love.audio.play( win_sound_2 )
+				end
 			elseif pontuacao >= score then
 				pontuacao = score
+				love.audio.stop( score_count )
 			end
 		else next_menu_active = false
 		end

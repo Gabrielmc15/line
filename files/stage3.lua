@@ -58,8 +58,8 @@ function stage3_load()
 	y_star2= 3/4*height - 25
 	star_2_collision = false
 
-	x_star3= width/2
-	y_star3= height -675
+	x_star3= width/2 - 32
+	y_star3= height -600
 	star_3_collision = false
 	stars={}
 	for i=1,4 do
