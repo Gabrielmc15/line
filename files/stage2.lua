@@ -188,6 +188,10 @@ function stage2_update(dt)
 			end
 		end
 
+		-----------------------------------arrow------------------------------------------------
+
+		if love.mouse.isDown(1) and stage_play then 
+			if checarToqueCircle(x_mouse, y_mouse, x_stage_arrow_button+32 , y_stage_arrow_button +32, 32 ) and stage_arrow then
 				love.audio.play( click )
 				if arrow_right_active then
 					arrow_left_active = true
