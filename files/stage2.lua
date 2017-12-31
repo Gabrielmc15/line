@@ -202,6 +202,7 @@ function stage2_update(dt)
 					stage_arrow = false
 				end
 			end
+		else stage_arrow = true
 		end
 
 		if checarToqueCircle(x_mouse, y_mouse, x_stage_help_button+32, y_stage_help_button+32, 32 ) then

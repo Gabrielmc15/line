@@ -210,8 +210,8 @@ function stage4_update(dt)
 					stage_ball = false
 				end
 			end
-			else stage_ball = true
-				stage_arrow = true
+		else stage_ball = true
+			stage_arrow = true
 		end
 
 		if not passou then
