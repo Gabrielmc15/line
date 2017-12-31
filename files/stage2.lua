@@ -183,7 +183,6 @@ function stage2_update(dt)
 				love.audio.play( click )
 				world_2:destroy( )
 				stage2_load()
-				end
 				score_update = true
 			end
 		end
