@@ -23,7 +23,7 @@ function stage1_load()
 	y_stage_play_button= 50
 
 	x_stage_replay_button = x_stage_play_button 
-	y_stage_replay_button = y_stage_play_button + 74
+	y_stage_replay_button = height - 150
 
 	x_stage_help_button =  x_stage_play_button 
 	y_stage_help_button = height - 75
@@ -58,7 +58,7 @@ function stage1_load()
 	star_1_collision = false
 
 	x_star2= width/2
-	y_star2= height-200
+	y_star2= height-300
 	star_2_collision = false
 
 	x_star3= width-200
@@ -128,6 +128,7 @@ function stage1_update(dt)
 		if checarToqueCircle(x_mouse, y_mouse, x_stage_play_button+32, y_stage_play_button+32, 32 ) then
 			love.mouse.setVisible( true )
 			if love.mouse.isDown(1) and stage_play and not passou and not fail then
+				love.audio.play( click )
 				objects.ball.body:applyForce(8000, 0)
 				objects.ball.body:setActive( true )
 				stage_play=false
@@ -137,6 +138,7 @@ function stage1_update(dt)
 		if checarToqueCircle(x_mouse, y_mouse, x_stage_replay_button+32, y_stage_replay_button+32, 32 ) then
 			love.mouse.setVisible(true)
 			if love.mouse.isDown(1) and stage_replay and not passou and  not fail then
+				love.audio.play( click )
 				world_1:destroy( )
 				stage1_load()
 				score_update = true
@@ -146,6 +148,7 @@ function stage1_update(dt)
 		if checarToqueCircle(x_mouse, y_mouse, x_stage_help_button+32, y_stage_help_button+32, 32 ) then
 			love.mouse.setVisible(true)
 			if love.mouse.isDown(1) and stage_help and not passou and not fail and stage_play then
+				love.audio.play( click )
 				help = true
 				stage_help = false
 				stage_play=false
@@ -153,6 +156,7 @@ function stage1_update(dt)
 			end
 		end
 		if love.keyboard.isDown("escape") and help and not stage_help then
+			love.audio.play( click )
 			help = false
 			stage_help = true
 			draw = true
@@ -285,7 +289,7 @@ function stage1_draw()
 		love.graphics.print( '"esc" para sair do menu de ajuda', 350 + (width/3 - 75) , (height/10)+ (height*4/10) -50 )
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.draw(star.spriteSheet, star.quads[spriteNum], (width/3- 75) + 15 , (height/10) + 75, 0, 1)
-		love.graphics.draw( stage_play_button, (width/3- 75) + 15 , (height/10) + 130, 0, 1/2, 1/2)
+		love.graphics.draw( stage_play_button, (width/3- 75) + 15 , (height/10) + 135, 0, 1/2, 1/2)
 		love.graphics.draw( stage_replay_button, (width/3- 75) + 15 , (height/10) + 170, 0, 1/2, 1/2)
 		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 205, 0, 1/2, 1/2)
 	end

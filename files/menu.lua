@@ -23,6 +23,7 @@ function menu_load()
 	stage_2_play = true
 	stage_3_play = true
 	stage_4_play = true
+	stage_5_play = true
 end
 
 function menu_update(dt)
@@ -47,17 +48,17 @@ function menu_update(dt)
 		function love.mousereleased(x, y, button)
 			if stage == 0 then
 				if button == 1 and (checaToqueRectangle(x_mouse,y_mouse, x_play_button, y_play_button, 200, 50) or checaToqueRectangle(x_mouse,y_mouse, x_scores_button, y_scores_button, 200, 50) or checaToqueRectangle(x_mouse,y_mouse, x_exit_button, y_exit_button, 200, 50) ) then
-					pressed = true
-					else pressed = false
+					pressed_menu = true
+					else pressed_menu = false
 				end
 			end
 		end
 		--botao play
 		if checaToqueRectangle(x_mouse,y_mouse, x_play_button, y_play_button, 200, 50) then
 			play_pressed = true
-			if pressed then
+			if pressed_menu then
 				stage = 1
-				pressed= false
+				pressed_menu= false
 				love.audio.play( click )
 			end
 			else play_pressed = false
@@ -65,9 +66,9 @@ function menu_update(dt)
 		--botao scores menu
 		if checaToqueRectangle(x_mouse,y_mouse, x_scores_button, y_scores_button, 200, 50) then
 			scores_pressed = true
-			if pressed then
+			if pressed_menu then
 				stage = 0
-				pressed= false
+				pressed_menu= false
 				love.audio.play( click )
 			end
 			else scores_pressed = false
@@ -75,9 +76,9 @@ function menu_update(dt)
 		--botao sair
 		if checaToqueRectangle(x_mouse,y_mouse, x_exit_button, y_exit_button, 200, 50) then
 			exit_pressed = true
-			if pressed then
+			if pressed_menu then
 				love.window.close( )
-				pressed= false
+				pressed_menu= false
 				love.audio.play( click )
 			end
 			else exit_pressed = false

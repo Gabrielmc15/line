@@ -29,10 +29,11 @@ function images_load()
 	arrow_right= love.graphics.newImage("images/ball/arrow-right.png")
 	arrow_left= love.graphics.newImage("images/ball/arrow-left.png")
 
-	stage_play_button= love.graphics.newImage("images/ball/stage-play-button.png")
-	stage_replay_button= love.graphics.newImage("images/ball/stage-replay-button.png")
-	stage_help_button= love.graphics.newImage("images/ball/stage-help-button.png")
-	stage_arrow_button = love.graphics.newImage("images/ball/stage-arrow-button.png")
+	stage_play_button= love.graphics.newImage("images/side_menu/stage-play-button.png")
+	stage_replay_button= love.graphics.newImage("images/side_menu/stage-replay-button.png")
+	stage_help_button= love.graphics.newImage("images/side_menu/stage-help-button.png")
+	stage_arrow_button = love.graphics.newImage("images/side_menu/stage-arrow-button.png")
+	stage_ball_button = love.graphics.newImage("images/side_menu/stage-ball-button.png")
 
 	ball = love.graphics.newImage("images/ball/ball.png")
 	beach_ball = love.graphics.newImage("images/ball/beach-ball.png")
@@ -47,14 +48,14 @@ function audio_load()
 	-------------------------------------audios----------------------------------------
 	click = love.audio.newSource("audio/click.wav", "static")
 	pick_star = love.audio.newSource("audio/pick_star.wav", "static")
-	score_count = love.audio.newSource("audio/score_count.wav", "static")
-
+	
 	win_sound = love.audio.newSource("audio/win_sound.wav", "static")
 	win_sound_1 = love.audio.newSource("audio/win_sound_1.wav", "static")
 	win_sound_2 = love.audio.newSource("audio/win_sound_2.wav", "static")
 	win_sound_3 = love.audio.newSource("audio/win_sound_3.wav", "static")
 
 	fan_sound = love.audio.newSource("audio/fan_fx.wav", "static")
+	booster_sound = love.audio.newSource("audio/booster_sound.wav", "static")
 end
 
 

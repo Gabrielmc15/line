@@ -23,7 +23,7 @@ function stage3_load()
 	y_stage_play_button= 50
 
 	x_stage_replay_button = x_stage_play_button 
-	y_stage_replay_button = y_stage_play_button + 74
+	y_stage_replay_button = height - 150
 
 	x_stage_help_button =  x_stage_play_button 
 	y_stage_help_button = height - 75
@@ -135,6 +135,7 @@ function stage3_update(dt)
 		if checarToqueCircle(x_mouse, y_mouse, x_stage_play_button+32, y_stage_play_button+32, 32 ) then
 			love.mouse.setVisible( true )
 			if love.mouse.isDown(1) and stage_play and not passou and not fail then
+				love.audio.play( click )
 				objects.ball.body:applyForce(8000, 0)
 				objects.ball.body:setActive( true )
 				stage_play=false
@@ -145,6 +146,7 @@ function stage3_update(dt)
 		if checarToqueCircle(x_mouse, y_mouse, x_stage_replay_button+32, y_stage_replay_button+32, 32 ) then
 			love.mouse.setVisible(true)
 			if love.mouse.isDown(1) and stage_replay and not passou and  not fail then
+				love.audio.play( click )
 				world_3:destroy( )
 				stage3_load()
 				score_update = true
@@ -154,6 +156,7 @@ function stage3_update(dt)
 		if checarToqueCircle(x_mouse, y_mouse, x_stage_help_button+32, y_stage_help_button+32, 32 ) then
 			love.mouse.setVisible(true)
 			if love.mouse.isDown(1) and stage_help and not passou and not fail and stage_play then
+				love.audio.play( click )
 				help = true
 				stage_help = false
 				stage_play=false
@@ -161,6 +164,7 @@ function stage3_update(dt)
 			end
 		end
 		if love.keyboard.isDown("escape") and help and not stage_help then
+			love.audio.play( click )
 			help = false
 			stage_help = true
 			draw = true
@@ -174,6 +178,7 @@ function stage3_update(dt)
 	-----------------------------booster---------------------------------------
 	if (checaToqueRectangle(x_ball, y_ball, x_booster_1, y_booster_1, 64, 64) or checaToqueRectangle(x_ball, y_ball, x_booster_2, y_booster_2, 64, 64)) and not booster_active then
 		objects.ball.body:applyForce(1500, 0)
+		love.audio.play( booster_sound )
 	end
 
 	-----------------------------score------------------------------------------
