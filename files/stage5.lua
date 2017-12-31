@@ -413,4 +413,3 @@ function stage5_draw()
 	love.graphics.draw(stage_arrow_button, x_stage_arrow_button, y_stage_arrow_button)
 	love.graphics.draw(stage_ball_button, x_stage_ball_button, y_stage_ball_button)
 end
-
