@@ -224,6 +224,7 @@ function stage4_update(dt)
 	elseif stage_play then 
 		draw = true
 	end
+
 	--------------------------------------------------score----------------------------------------------------
 
 	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_star1-15, y_star1-15, 60, 60) and not star_1_collision then

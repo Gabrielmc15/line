@@ -16,6 +16,7 @@ function love.load()
 	animation_load()
 	animation_fan_load()
 	animation_wind_load()
+	animation_portal_load()
 end
 
 function love.update(dt)
@@ -23,6 +24,7 @@ function love.update(dt)
 	animation_update(dt)
 	animation_fan_update(dt)
 	animation_wind_update(dt)
+	animation_portal_update(dt)
 	nextMenu_update(dt)
 	if stage == 1 then
 		if stage_1_play then

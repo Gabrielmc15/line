@@ -1,7 +1,7 @@
 function menu_load()
 	pressed = false
 	nextMenu_load()
-	stage = 0
+	stage = 5
 	x_play_button=(width/2) - 100
 	y_play_button=(height/2) +100
 	play_pressed= false

@@ -60,27 +60,42 @@ function stage5_load()
 	objects.line.shape = love.physics.newCircleShape(size)
 	objects.line.fixture = love.physics.newFixture(objects.line.body, objects.line.shape)
 	-----------------------flag---------------------------------------------------------
-	x_flag=width-130
-	y_flag=3/4*height
+	x_flag=width-150
+	y_flag=height*3/4 +50
 	passou= false
 	fail=false
 	------------------------stars------------------------------------------------------
 	score= 0
 	x_star1= 175
-	y_star1= (height*3/5)-150
+	y_star1= (height*1/5)
 	star_1_collision = false
 
-	x_star2= width/2
-	y_star2= height-350
+	x_star2= width/2 - 25
+	y_star2= height/2 - 50
 	star_2_collision = false
 
-	x_star3= width-200
-	y_star3= height -150
+	x_star3= width-150
+	y_star3= height/2
 	star_3_collision = false
 	stars={}
 	for i=1,4 do
 		stars[i]=0
 	end
+	--------------------------portal----------------------------------------------
+	x_portal_1= 100
+	y_portal_1= height*4/5
+
+	x_portal_2= width- 30 
+	y_portal_2= height/4 +25
+	portal_active = true
+
+	-------------------------booster-----------------------------------------------
+	x_booster_1 = width/2 - 125
+	y_booster_1 =height /2 -25 + 200
+
+	x_booster_2 = width/2 + 75
+	y_booster_2 = height*1/3 + 200
+
 	--para o efeito da pontuacao
 	x_score_1=x_star1
 	y_score_1=y_star1
@@ -210,10 +225,33 @@ function stage5_update(dt)
 			else stage_ball = true
 				stage_arrow = true
 		end
-		
+
 		if not passou then
 			rotation=rotation+velocX_bola/1000
 		end
+	end
+	------------------------------------------espaço indesenhavel----------------------------------------
+	if checaToqueRectangle(x_mouse,y_mouse,  width/2 + 150 , -10, width*1/4, height +10) or checaToqueRectangle(x_mouse,y_mouse, width/4+15 , -10, width/10, height +10) then
+		draw = false
+	elseif stage_play then 
+		draw = true
+	end
+
+	----------------------------------portal---------------------------------------------
+	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_portal_1,  y_portal_1 +20 , 50, 140) and portal_active then 
+		objects.ball.body:setPosition(x_portal_2 -50, y_portal_2 -75)
+		love.audio.play( portal_sound )
+		portal_active = false
+	else portal_active = true
+	end
+	--------------------------------------------------booster-------------------------------------------------
+	if checaToqueRectangle(x_ball, y_ball, x_booster_1, y_booster_1, 64, 64) then
+		objects.ball.body:applyForce(1500, 0)
+		love.audio.play( booster_sound )
+	end
+	if checaToqueRectangle(x_ball, y_ball, x_booster_2 - 34, y_booster_2 - 72, 64, 64) then
+		objects.ball.body:applyForce(-1500, -500)
+		love.audio.play( booster_sound )
 	end
 	-----------------------------score------------------------------
 	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_star1-15, y_star1-15, 60, 60) and not star_1_collision then
@@ -270,10 +308,18 @@ end
 function stage5_draw()
 	love.graphics.setColor(0, 0, 0)
    	love.graphics.setFont(font_low)
+   	----------------------------espaço indesenhavel-------------------------
+   	love.graphics.setColor(84,68,68, 255/3)
+   	love.graphics.rectangle( "fill", width/2 + 150 , -10, width*1/4, height +10 )
+   	love.graphics.rectangle( "fill", width/4 +15, -10, width/10, height +10 )
 
 	-------------------------------flag--------------------------------------
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(flag, x_flag, y_flag)
+	----------------------------portal----------------------------------------
+	local spriteNum = math.floor(portal.currentTime / portal.duration * #portal.quads) + 1
+    love.graphics.draw(portal.spriteSheet, portal.quads[spriteNum], x_portal_1, y_portal_1, 0, 1)
+    love.graphics.draw(portal.spriteSheet, portal.quads[spriteNum], x_portal_2, y_portal_2, math.rad(180), 1)
 
 	-------------------------------line------------------------------------
 	for i = 1, #mouse_positions do
@@ -284,6 +330,9 @@ function stage5_draw()
 	end
 	if draw then
 		love.graphics.setColor(0, 0, 0)
+		love.graphics.circle("line", x, y, size)
+		elseif not draw and stage_play then
+		love.graphics.setColor(214, 4, 14)
 		love.graphics.circle("line", x, y, size)
 	end
 	love.graphics.setColor(255, 255, 255)
@@ -304,6 +353,10 @@ function stage5_draw()
 			love.graphics.draw( arrow_left, x_arrow_left, y_arrow_left)
 		end
 	end
+
+	---------------------------booster-----------------------------------
+	love.graphics.draw( booster, x_booster_1, y_booster_1)
+	love.graphics.draw( booster, x_booster_2, y_booster_2,math.rad(-145))
 
 	-----------------------------stars----------------------------------------
 	love.graphics.setFont(font_low)
@@ -331,24 +384,21 @@ function stage5_draw()
 
   	--------------------------help-----------------------------------------
   	if help then
+  		local spriteNum = math.floor(portal.currentTime / portal.duration * #portal.quads) + 1
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.rectangle( "fill", (width/3 - 75), (height/10) , 700 , (height*4/10))
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.rectangle( "line", (width/3- 75), (height/10) , 700 , (height*4/10))
 		love.graphics.print( "* Use o mouse para desenhar na tela", (width/3- 75) + 15 , (height/10) + 25)
 		love.graphics.print( "* O objetivo é fazer com que a bola toque na bandeira", (width/3- 75) + 15, (height/10) + 50)
-		love.graphics.print( " para cada estrela você ganha 100 pontos e para cada ", (width/3- 75) + 40, (height/10) + 75)
-		love.graphics.print( "  estrela extra você ganha + 50 pontos ", (width/3- 75) + 15 , (height/10) + 100)
-		love.graphics.print( 'O botão "play" impulsiona a bola na direção da seta', (width/3- 75) + 50 , (height/10) + 135)
-		love.graphics.print( 'O botão "replay" reinicia a fase', (width/3- 75) + 50 , (height/10) + 170)
-		love.graphics.print( " No decorrer do jogo novos objetos e novas interações irão", (width/3- 75) + 50 , (height/10) + 205)
-		love.graphics.print( 'aparecer, então quando precisar de ajuda clique no botão "help"', (width/3- 75) + 15 , (height/10) + 230)
+		love.graphics.print( " Quando a bola passa por um portal, ela se teletransporta ", (width/3- 75) + 40, (height/10) + 85)
+		love.graphics.print( " para o outro ", (width/3- 75) + 40 , (height/10) + 110)
+		love.graphics.print( " No decorrer do jogo novos objetos e novas interações irão", (width/3- 75) + 50 , (height/10) + 160)
+		love.graphics.print( 'aparecer, então quando precisar de ajuda clique no botão "help"', (width/3- 75) + 15 , (height/10) + 185)
 		love.graphics.print( '"esc" para sair do menu de ajuda', 350 + (width/3 - 75) , (height/10)+ (height*4/10) -50 )
 		love.graphics.setColor(255, 255, 255)
-		love.graphics.draw(star.spriteSheet, star.quads[spriteNum], (width/3- 75) + 15 , (height/10) + 75, 0, 1)
-		love.graphics.draw( stage_play_button, (width/3- 75) + 15 , (height/10) + 135, 0, 1/2, 1/2)
-		love.graphics.draw( stage_replay_button, (width/3- 75) + 15 , (height/10) + 170, 0, 1/2, 1/2)
-		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 205, 0, 1/2, 1/2)
+		love.graphics.draw(portal.spriteSheet, portal.quads[spriteNum], (width/3- 75) + 15 , (height/10) + 75, 0, 1/2, 1/2)
+		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 160, 0, 1/2, 1/2)
 	end
 
 	-------------------------side bar--------------------------------------

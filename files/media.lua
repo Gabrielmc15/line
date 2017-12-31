@@ -56,6 +56,7 @@ function audio_load()
 
 	fan_sound = love.audio.newSource("audio/fan_fx.wav", "static")
 	booster_sound = love.audio.newSource("audio/booster_sound.wav", "static")
+	portal_sound = love.audio.newSource("audio/portal_sound.wav", "static")
 end
 
 
@@ -148,4 +149,32 @@ function newwind(image, width, height, duration)
     wind.currentTime = 0
 
     return wind
+end
+-----------------------------------animacao do portal--------------------------------------------
+function animation_portal_load()
+    portal = newportal(love.graphics.newImage("images/scenario/portal.png"), 54, 180, 0.5)
+end
+
+function animation_portal_update(dt)
+    portal.currentTime = portal.currentTime + dt
+    if portal.currentTime >= portal.duration then
+        portal.currentTime = portal.currentTime - portal.duration
+    end
+end
+
+function newportal(image, width, height, duration)
+    local portal = {}
+    portal.spriteSheet = image;
+    portal.quads = {};
+
+    for y = 0, image:getHeight() - height, height do
+        for x = 0, image:getWidth() - width, width do
+            table.insert(portal.quads, love.graphics.newQuad(x, y, width, height, image:getDimensions()))
+        end
+    end
+
+    portal.duration = duration or 1
+    portal.currentTime = 0
+
+    return portal
 end

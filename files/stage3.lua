@@ -176,7 +176,7 @@ function stage3_update(dt)
 		end
 	end
 	-----------------------------booster---------------------------------------
-	if (checaToqueRectangle(x_ball, y_ball, x_booster_1, y_booster_1, 64, 64) or checaToqueRectangle(x_ball, y_ball, x_booster_2, y_booster_2, 64, 64)) and not booster_active then
+	if (checaToqueRectangle(x_ball, y_ball, x_booster_1, y_booster_1, 64, 64) or checaToqueRectangle(x_ball, y_ball, x_booster_2, y_booster_2, 64, 64)) then
 		objects.ball.body:applyForce(1500, 0)
 		love.audio.play( booster_sound )
 	end
