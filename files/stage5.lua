@@ -112,17 +112,10 @@ end
 
 function stage5_update(dt)
 	world_5:update(dt)
+	x_mouse, y_mouse = love.mouse.getPosition( )
 	x, y = love.mouse.getPosition( )
-	--------------------------flag--------------------------------------
-	if objects.ball.body:getY() > 950 then
-		fail = true
-	end
-
-	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_flag, y_flag, 84, 128) then
-		passou= true
-		final_score  = total_score
-		objects.ball.body:setActive( false )
-	end
+	velocX_bola, velocY_bola = objects.ball.body:getLinearVelocity( )
+	x_ball, y_ball = objects.ball.body:getX(), objects.ball.body:getY()
 
 	------------------------line-----------------------------------------
 
@@ -146,8 +139,6 @@ function stage5_update(dt)
 	end
 
 	------------------------side menu--------------------------------------------
-	velocX_bola, velocY_bola = objects.ball.body:getLinearVelocity( )
-	x_ball, y_ball = objects.ball.body:getX(), objects.ball.body:getY()
 	if  not((passou and  fail) and  next_menu_active) then
 		if checaToqueRectangle(x_mouse, y_mouse, -10, -10 , 100 , height+10 ) then 
 			love.mouse.setVisible( true )
@@ -231,7 +222,7 @@ function stage5_update(dt)
 		end
 	end
 	------------------------------------------espaço indesenhavel----------------------------------------
-	if checaToqueRectangle(x_mouse,y_mouse,  width/2 + 150 , -10, width*1/4, height +10) or checaToqueRectangle(x_mouse,y_mouse, width/4+15 , -10, width/10, height +10) then
+	if checaToqueRectangle(x_mouse,y_mouse,  width/2 + 150 , -10, width*1/4, height +10) or checaToqueRectangle(x_mouse,y_mouse, width/4+15 , -10, width/10, height +10) or x < 90 then
 		draw = false
 	elseif stage_play then 
 		draw = true
@@ -253,89 +244,20 @@ function stage5_update(dt)
 		objects.ball.body:applyForce(-1500, -500)
 		love.audio.play( booster_sound )
 	end
-	-----------------------------score------------------------------
-	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_star1-15, y_star1-15, 60, 60) and not star_1_collision then
-		stars[1]= 100
-		star_1_collision = true
-		y_score_1 = y_star1
-		opacity1=255
-		score_update = true
-		love.audio.play( pick_star )
-	end
-	y_score_1 = y_score_1 -4
-	opacity1 = opacity1 -10
-
-	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_star2-15, y_star2-15, 60, 60) and not star_2_collision then
-		stars[2]= 100
-		star_2_collision = true
-		y_score_2 = y_star2
-		opacity2 = 255
-		score_update = true
-		love.audio.play( pick_star )
-	end
-	y_score_2 = y_score_2 -4
-	opacity2 = opacity2 -10
-
-	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_star3-15, y_star3-15, 60, 60) and not star_3_collision then
-		stars[3]=100
-		star_3_collision = true
-		y_score_3 = y_star3
-		opacity3 = 255
-		score_update = true
-		love.audio.play( pick_star )
-	end
-	y_score_3 = y_score_3 -4
-	opacity3 = opacity3 -10
-
-	if stars[1] == 100 and stars[2]== 0 and stars[3]== 0 then
-		stars[4]= 0
-	elseif stars[1] == 0 and stars[2]== 100 and stars[3]== 0 then
-		stars[4]= 0
-	elseif stars[1] == 0 and stars[2]== 0 and stars[3]== 100 then
-		stars[4]= 0
-	elseif stars[1] == 100 and stars[2]== 100 and stars[3]== 0 then
-		stars[4]= 50
-	elseif stars[1] == 100 and stars[2]== 0 and stars[3]== 100 then
-		stars[4]= 50
-	elseif stars[1] == 0 and stars[2]== 100 and stars[3]== 100 then
-		stars[4]= 50
-	elseif stars[1] == 100 and stars[2]== 100 and stars[3]== 100 then
-		stars[4]= 150
-	end
-	score = stars[1] + stars[2] + stars[3] + stars[4]
 end
 
 function stage5_draw()
-	love.graphics.setColor(0, 0, 0)
    	love.graphics.setFont(font_low)
    	----------------------------espaço indesenhavel-------------------------
    	love.graphics.setColor(84,68,68, 255/3)
    	love.graphics.rectangle( "fill", width/2 + 150 , -10, width*1/4, height +10 )
    	love.graphics.rectangle( "fill", width/4 +15, -10, width/10, height +10 )
+   	love.graphics.setColor(255, 255, 255)
 
-	-------------------------------flag--------------------------------------
-	love.graphics.setColor(255,255,255)
-	love.graphics.draw(flag, x_flag, y_flag)
 	----------------------------portal----------------------------------------
 	local spriteNum = math.floor(portal.currentTime / portal.duration * #portal.quads) + 1
     love.graphics.draw(portal.spriteSheet, portal.quads[spriteNum], x_portal_1, y_portal_1, 0, 1)
     love.graphics.draw(portal.spriteSheet, portal.quads[spriteNum], x_portal_2, y_portal_2, math.rad(180), 1)
-
-	-------------------------------line------------------------------------
-	for i = 1, #mouse_positions do
-		obj = mouse_positions[i]
-
-		love.graphics.setColor(obj[1])
-		love.graphics.circle("fill", obj[2], obj[3], obj[4])
-	end
-	if draw then
-		love.graphics.setColor(0, 0, 0)
-		love.graphics.circle("line", x, y, size)
-		elseif not draw and stage_play then
-		love.graphics.setColor(214, 4, 14)
-		love.graphics.circle("line", x, y, size)
-	end
-	love.graphics.setColor(255, 255, 255)
 
 	------------------------------ball--------------------------------------
 	love.graphics.setColor(0, 0, 0)

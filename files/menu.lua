@@ -24,6 +24,46 @@ function menu_load()
 	stage_3_play = true
 	stage_4_play = true
 	stage_5_play = true
+	--------------------------line necessarias-----------------
+	mouse_positions = {}
+	size = 4,5
+	width_line = -100
+	height_line = -100
+	draw= false
+	-------------------------flag necessarias------------------
+	 x_flag = 1
+	 y_flag = 1
+	 passou = false
+	 fail = false
+	---------------------------star nessecarias----------------
+	x_ball = 1000
+	y_ball = 1000
+	score= 0
+	x_star1= 0
+	y_star1= 0
+	star_1_collision = false
+
+	x_star2= 0
+	y_star2= 0
+	star_2_collision = false
+
+	x_star3= 0
+	y_star3= 0
+	star_3_collision = false
+	stars={}
+	for i=1,4 do
+		stars[i]=0
+	end
+	--para o efeito da pontuacao
+	x_score_1=x_star1
+	y_score_1=y_star1
+	x_score_2=x_star2
+	y_score_2=y_star2
+	x_score_3=x_star3
+	y_score_3=y_star3
+	opacity1 = 255
+	opacity2 = 255
+	opacity3 = 255
 end
 
 function menu_update(dt)
@@ -42,7 +82,7 @@ function menu_update(dt)
 		love.audio.play( win_sound )
 		win_sound_playable = false
 	end
-
+	------------------------os botoes do menu-----------------------------
 	x_mouse, y_mouse = love.mouse.getPosition( )
 	if stage == 0 then
 		function love.mousereleased(x, y, button)
@@ -84,6 +124,70 @@ function menu_update(dt)
 			else exit_pressed = false
 		end
 	end
+		------------------------------flag---------------------------------------------------
+	if y_ball > 950 then
+		fail = true
+	end
+
+	if checaToqueRectangle(x_ball, y_ball, x_flag, y_flag, 84, 128) then
+		passou= true
+		final_score  = total_score
+		objects.ball.body:setActive( false )
+	end
+	------------------------line-----------------------------------------
+	x, y = love.mouse.getPosition( )
+	---------------------------------score-------------------------------------------------
+	if stage > 0 then
+		if checaToqueRectangle(x_ball, y_ball, x_star1-15, y_star1-15, 60, 60) and not star_1_collision then
+			stars[1]= 100
+			star_1_collision = true
+			y_score_1 = y_star1
+			opacity1=255
+			score_update = true
+			love.audio.play( pick_star )
+		end
+		y_score_1 = y_score_1 -4
+		opacity1 = opacity1 -10
+	
+		if checaToqueRectangle(x_ball, y_ball, x_star2-15, y_star2-15, 60, 60) and not star_2_collision then
+			stars[2]= 100
+			star_2_collision = true
+			y_score_2 = y_star2
+			opacity2 = 255
+			score_update = true
+			love.audio.play( pick_star )
+		end
+		y_score_2 = y_score_2 -4
+		opacity2 = opacity2 -10
+	
+		if checaToqueRectangle(x_ball, y_ball, x_star3-15, y_star3-15, 60, 60) and not star_3_collision then
+			stars[3]=100
+			star_3_collision = true
+			y_score_3 = y_star3
+			opacity3 = 255
+			score_update = true
+			love.audio.play( pick_star )
+		end
+		y_score_3 = y_score_3 -4
+		opacity3 = opacity3 -10
+	
+		if stars[1] == 100 and stars[2]== 0 and stars[3]== 0 then
+			stars[4]= 0
+		elseif stars[1] == 0 and stars[2]== 100 and stars[3]== 0 then
+			stars[4]= 0
+		elseif stars[1] == 0 and stars[2]== 0 and stars[3]== 100 then
+			stars[4]= 0
+		elseif stars[1] == 100 and stars[2]== 100 and stars[3]== 0 then
+			stars[4]= 50
+		elseif stars[1] == 100 and stars[2]== 0 and stars[3]== 100 then
+			stars[4]= 50
+		elseif stars[1] == 0 and stars[2]== 100 and stars[3]== 100 then
+			stars[4]= 50
+		elseif stars[1] == 100 and stars[2]== 100 and stars[3]== 100 then
+			stars[4]= 150
+		end
+		score = stars[1] + stars[2] + stars[3] + stars[4]
+	end
 end
 
 function menu_draw()
@@ -102,10 +206,27 @@ function menu_draw()
 		end
 	end
 	if stage > 0 then 
+		for i = 1, #mouse_positions do
+			obj = mouse_positions[i]
+	
+			love.graphics.setColor(obj[1])
+			love.graphics.circle("fill", obj[2], obj[3], obj[4])
+		end
+		if draw then
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.circle("line", x, y, size)
+			elseif not draw and stage_play and x > 90 then
+			love.graphics.setColor(214, 4, 14)
+			love.graphics.circle("line", x_mouse, y_mouse, size)
+		end
+	love.graphics.setColor(255, 255, 255)
 		love.graphics.setColor(0, 0, 0)
    		love.graphics.setFont(font_low)
 		love.graphics.print( "pontuação total: " .. total_score, width- 250, 45)
 		love.graphics.print( "fase : " .. stage , width- 100, 20)
 		love.graphics.setColor(255, 255, 255)
+		-------------------------------flag--------------------------------------
+		love.graphics.setColor(255,255,255)
+		love.graphics.draw(flag, x_flag, y_flag)
 	end
 end

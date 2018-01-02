@@ -8,23 +8,18 @@ require "files/checaToque"
 require "files/menu"
 require "files/nextMenu"
 require "files/media"
+require "files/animation"
 function love.load()
 	images_load()
 	audio_load()
 	conf_load()
 	menu_load()
 	animation_load()
-	animation_fan_load()
-	animation_wind_load()
-	animation_portal_load()
 end
 
 function love.update(dt)
 	menu_update(dt)
 	animation_update(dt)
-	animation_fan_update(dt)
-	animation_wind_update(dt)
-	animation_portal_update(dt)
 	nextMenu_update(dt)
 	if stage == 1 then
 		if stage_1_play then
@@ -58,7 +53,6 @@ function love.update(dt)
 end
 
 function love.draw()
-	menu_draw()
 	if stage == 1 then
 		stage1_draw()
 	elseif stage == 2 then
@@ -70,5 +64,6 @@ function love.draw()
 	elseif stage == 5 then
 		stage5_draw()
 	end
+	menu_draw()
 	nextMenu_draw()
 end
