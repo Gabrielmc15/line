@@ -133,8 +133,8 @@ function nextMenu_update(dt)
 				love.audio.play( click )
 				--fail = true
 				if stage == 1 then
-				world_1:destroy( )
-				stage1_load()
+					world_1:destroy( )
+					stage1_load()
 				elseif stage == 2 then
 					world_2:destroy( )
 					stage2_load()				

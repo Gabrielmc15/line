@@ -1,6 +1,7 @@
 function stage3_load()
 	stage_3_play = false
 	nextMenu_load()
+	sideMenu_load()
 	win_sound_playable = true
 	world_3 = love.physics.newWorld(0, 5*64, true)
 	objects = {}
@@ -88,6 +89,7 @@ function stage3_load()
 end
 function stage3_update(dt)
 	world_3:update(dt)
+	sideMenu_update(dt)
 	x_mouse, y_mouse = love.mouse.getPosition( )
 	x, y = love.mouse.getPosition( )
 	velocX_bola, velocY_bola = objects.ball.body:getLinearVelocity( )
@@ -115,53 +117,15 @@ function stage3_update(dt)
 	end
 	------------------------ball--------------------------------------------
 	if  not((passou and  fail) and  next_menu_active) then
+		if not passou then
+			rotation=rotation+velocX_bola/1000
+		end
 		if checaToqueRectangle(x_mouse, y_mouse, -10, -10 , 100 , height+10 ) then 
 			love.mouse.setVisible( true )
 			draw = false
-		elseif stage_play then 
+		end
+		if stage_play then 
 			draw = true
-		end
-		if checarToqueCircle(x_mouse, y_mouse, x_stage_play_button+32, y_stage_play_button+32, 32 ) then
-			love.mouse.setVisible( true )
-			if love.mouse.isDown(1) and stage_play and not passou and not fail then
-				love.audio.play( click )
-				objects.ball.body:applyForce(8000, 0)
-				objects.ball.body:setActive( true )
-				stage_play=false
-				draw= false
-			end
-		end
-
-		if checarToqueCircle(x_mouse, y_mouse, x_stage_replay_button+32, y_stage_replay_button+32, 32 ) then
-			love.mouse.setVisible(true)
-			if love.mouse.isDown(1) and stage_replay and not passou and  not fail then
-				love.audio.play( click )
-				world_3:destroy( )
-				stage3_load()
-				score_update = true
-			end
-		end
-
-		if checarToqueCircle(x_mouse, y_mouse, x_stage_help_button+32, y_stage_help_button+32, 32 ) then
-			love.mouse.setVisible(true)
-			if love.mouse.isDown(1) and stage_help and not passou and not fail and stage_play then
-				love.audio.play( click )
-				help = true
-				stage_help = false
-				stage_play=false
-				draw = false
-			end
-		end
-		if love.keyboard.isDown("escape") and help and not stage_help then
-			love.audio.play( click )
-			help = false
-			stage_help = true
-			draw = true
-			stage_play=true
-		end
-
-		if not passou then
-			rotation=rotation+velocX_bola/1000
 		end
 	end
 	-----------------------------booster---------------------------------------
@@ -232,14 +196,7 @@ love.graphics.draw( booster, x_booster_2, y_booster_2,  math.rad(-20))
 		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 163, 0, 1/2, 1/2)
 	end
 
-	-------------------------side bar--------------------------------------
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.rectangle( "fill", -10, -10 , 100 , height+10)
-	love.graphics.setColor(0, 0, 0)
-	love.graphics.rectangle( "line", -10, -10 , 100 , height+10)
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(stage_play_button, x_stage_play_button, y_stage_play_button)
-	love.graphics.draw(stage_replay_button, x_stage_replay_button, y_stage_replay_button)
-	love.graphics.draw(stage_help_button, x_stage_help_button, y_stage_help_button)
+	-------------------------side menu--------------------------------------
+	sideMenu_draw()
 end
 

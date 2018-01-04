@@ -31,10 +31,10 @@ function menu_load()
 	height_line = -100
 	draw= false
 	-------------------------flag necessarias------------------
-	 x_flag = 1
-	 y_flag = 1
-	 passou = false
-	 fail = false
+	x_flag = 1
+	y_flag = 1
+	passou = false
+	fail = false
 	---------------------------star nessecarias----------------
 	x_ball = 1000
 	y_ball = 1000
@@ -219,7 +219,8 @@ function menu_draw()
 			love.graphics.setColor(214, 4, 14)
 			love.graphics.circle("line", x_mouse, y_mouse, size)
 		end
-	love.graphics.setColor(255, 255, 255)
+	-------------------------score---------------------------------------
+		love.graphics.setColor(255, 255, 255)
 		love.graphics.setColor(0, 0, 0)
    		love.graphics.setFont(font_low)
 		love.graphics.print( "pontuação total: " .. total_score, width- 250, 45)

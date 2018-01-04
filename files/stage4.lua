@@ -1,6 +1,7 @@
 function stage4_load()
 	stage_4_play = false
 	nextMenu_load()
+	sideMenu_load()
 	win_sound_playable = true
 	world_4 = love.physics.newWorld(0, 8*64, true)
 	objects = {}
@@ -50,6 +51,8 @@ function stage4_load()
 	stage_arrow = true
 	stage_ball = true
 	help = false
+	-------------------------espaço indesenhavel----------------------------------------
+	grey_space = false
 	-------------------------line---------------------------------------------------------
 	mouse_positions = {}
 	size = 4,5
@@ -97,6 +100,7 @@ end
 
 function stage4_update(dt)
 	world_4:update(dt)
+	sideMenu_update(dt)
 	x_mouse, y_mouse = love.mouse.getPosition( )
 	x, y = love.mouse.getPosition( )
 	velocX_bola, velocY_bola = objects.ball.body:getLinearVelocity( )
@@ -113,7 +117,7 @@ function stage4_update(dt)
 	color_black = {0, 0, 0}
 	down = love.mouse.isDown(1)
 
-	if down and draw then
+	if down and draw and not grey_space then
 		mouse_positions[#mouse_positions + 1] = {color_black, x, y, size}
 		width_line = x
 		height_line = y
@@ -126,95 +130,26 @@ function stage4_update(dt)
 
 	------------------------ball--------------------------------------------
 	if  not((passou and  fail) and  next_menu_active) then
+		if not passou then
+			rotation=rotation+velocX_bola/1000
+		end
 		if checaToqueRectangle(x_mouse, y_mouse, -10, -10 , 100 , height+10 ) then 
 			love.mouse.setVisible( true )
 			draw = false
-		elseif stage_play then 
+		end
+		if stage_play then 
 			draw = true
-		end
-		------------------------------------------side menu---------------------------------
-		if checarToqueCircle(x_mouse, y_mouse, x_stage_play_button+32, y_stage_play_button+32, 32 ) then
-			love.mouse.setVisible( true )
-			if love.mouse.isDown(1) and stage_play and not passou and not fail then
-				love.audio.play( click )
-				if arrow_right_active then
-					objects.ball.body:applyForce(10000, 0)
-				elseif arrow_left_active then
-					objects.ball.body:applyForce(-10000, 0)
-				end
-				objects.ball.body:setActive( true )
-				stage_play=false
-				draw= false
-			end
-		end
-		if checarToqueCircle(x_mouse, y_mouse, x_stage_replay_button+32, y_stage_replay_button+32, 32 ) then
-			love.mouse.setVisible(true)
-			if love.mouse.isDown(1) and stage_replay and not passou and  not fail then
-				love.audio.play( click )
-				world_4:destroy( )
-				stage4_load()
-				score_update = true
-			end
-		end
-
-		if checarToqueCircle(x_mouse, y_mouse, x_stage_help_button+32, y_stage_help_button+32, 32 ) then
-			love.mouse.setVisible(true)
-			if love.mouse.isDown(1) and stage_help and not passou and not fail and stage_play then
-				love.audio.play( click )
-				help = true
-				stage_help = false
-				stage_play=false
-				draw = false
-			end
-		end
-		if love.keyboard.isDown("escape") and help and not stage_help then
-			love.audio.play( click )
-			help = false
-			stage_help = true
-			draw = true
-			stage_play=true
-		end
-
-		if love.mouse.isDown(1) and stage_play then 
-			if checarToqueCircle(x_mouse, y_mouse, x_stage_arrow_button+32 , y_stage_arrow_button +32, 32 ) and stage_arrow then
-				love.audio.play( click )
-				if arrow_right_active then
-					arrow_left_active = true
-					arrow_right_active= false
-					stage_arrow = false
-				elseif arrow_left_active then
-					arrow_right_active = true
-					arrow_left_active = false
-					stage_arrow = false
-				end
-			elseif checarToqueCircle(x_mouse, y_mouse, x_stage_ball_button+32 , y_stage_ball_button +32, 32 ) and stage_ball then
-				love.audio.play( click )
-				if yoga_ball_active then
-					beach_ball_active = true
-					yoga_ball_active = false
-					objects.ball.fixture:setRestitution(0.7)
-					stage_ball = false
-				elseif beach_ball_active then
-					yoga_ball_active = true
-					beach_ball_active = false
-					objects.ball.fixture:setRestitution(0)
-					stage_ball = false
-				end
-			end
-		else stage_ball = true
-			stage_arrow = true
-		end
-
-		if not passou then
-			rotation=rotation+velocX_bola/1000
 		end
 	end
 	--------------------------------------------------espaço indesenhavel----------------------------------------
 	if checaToqueRectangle(x_mouse,y_mouse, -10, -10, width*1/4 +10, height +10) or checaToqueRectangle(x_mouse,y_mouse, width -(width*1/4), -10, width*1/4, height +10) or checaToqueRectangle(x_mouse,y_mouse, width/2 - 75, -10, 150, height+10) then
+		grey_space = true
 		draw = false
 	elseif stage_play then 
+		grey_space = false
 		draw = true
 	end
+
 end
 
 function stage4_draw()
@@ -225,8 +160,6 @@ function stage4_draw()
    	love.graphics.rectangle( "fill", width -(width*1/4) , -10, width*1/4, height +10 )
    	love.graphics.rectangle( "fill", width/2 - 75, -10, 150, height +10 )
    	love.graphics.setColor(255, 255, 255)
-
-
 ------------------------------ball--------------------------------------
 
 	love.graphics.setColor(0, 0, 0)
@@ -289,15 +222,6 @@ function stage4_draw()
 		love.graphics.setColor(84,68,68, 255/3)
    		love.graphics.rectangle( "fill", (width/3 - 75) +15 , (height/10) + 75 , 50 , 50)
 	end
-	-------------------------side bar--------------------------------------
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.rectangle( "fill", -10, -10 , 100 , height+10)
-	love.graphics.setColor(0, 0, 0)
-	love.graphics.rectangle( "line", -10, -10 , 100 , height+10)
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(stage_play_button, x_stage_play_button, y_stage_play_button)
-	love.graphics.draw(stage_replay_button, x_stage_replay_button, y_stage_replay_button)
-	love.graphics.draw(stage_help_button, x_stage_help_button, y_stage_help_button)
-	love.graphics.draw(stage_arrow_button, x_stage_arrow_button, y_stage_arrow_button)
-	love.graphics.draw(stage_ball_button, x_stage_ball_button, y_stage_ball_button)
+	-------------------------side menu--------------------------------------
+	sideMenu_draw()
 end

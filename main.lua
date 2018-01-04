@@ -9,11 +9,13 @@ require "files/menu"
 require "files/nextMenu"
 require "files/media"
 require "files/animation"
+require "files/sideMenu"
 function love.load()
 	images_load()
 	audio_load()
 	conf_load()
 	menu_load()
+	sideMenu_load()
 	animation_load()
 end
 
@@ -53,6 +55,10 @@ function love.update(dt)
 end
 
 function love.draw()
+	menu_draw()
+	if stage > 0 then
+		sideMenu_draw()
+	end
 	if stage == 1 then
 		stage1_draw()
 	elseif stage == 2 then
@@ -64,6 +70,5 @@ function love.draw()
 	elseif stage == 5 then
 		stage5_draw()
 	end
-	menu_draw()
 	nextMenu_draw()
 end
