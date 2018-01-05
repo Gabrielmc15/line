@@ -26,6 +26,9 @@ function sideMenu_load()
 	stage_replay=true -- controle
 	stage_help = true --controle
 	help = false
+
+	beach_ball_active = false
+	yoga_ball_active = true
 end
 
 function sideMenu_update(dt)
@@ -48,9 +51,9 @@ function sideMenu_update(dt)
 					end
 				elseif arrow_left_active then
 					if beach_ball_active then
-						objects.ball.body:applyForce(10000, 0)
+						objects.ball.body:applyForce(-10000, 0)
 					else
-						objects.ball.body:applyForce(8000, 0)
+						objects.ball.body:applyForce(-8000, 0)
 					end
 				end
 				objects.ball.body:setActive( true )
