@@ -6,6 +6,10 @@ function images_load()
 	scores_button_pressed = love.graphics.newImage("images/menu/scores-button_pressed.png")
 	exit_button = love.graphics.newImage("images/menu/exit-button.png")
 	exit_button_pressed = love.graphics.newImage("images/menu/exit-button_pressed.png")
+	gravar_button = love.graphics.newImage("images/menu/gravar-button.png")
+	gravar_button_pressed = love.graphics.newImage("images/menu/gravar-button_pressed.png")
+	button_menu = love.graphics.newImage("images/menu/button_menu.png")
+	button_menu_pressed = love.graphics.newImage("images/menu/button_menu_pressed.png")
 
 	----------------------------------next menu-------------------------------------
 	next_menu = love.graphics.newImage("images/next_menu/next-menu.png")

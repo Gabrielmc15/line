@@ -119,6 +119,9 @@ function nextMenu_update(dt)
 		if checaToqueRectangle(x_mouse,y_mouse, x_next_button, y_next_button, 148, 40) then
 			next_pressed = true
 			if pressed_next_menu then
+				if stage == 5 then
+					stage = 11
+				end
 				stage = stage + 1
 				pressed_next_menu = false
 				love.audio.play( click )

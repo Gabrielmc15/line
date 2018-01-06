@@ -1,7 +1,7 @@
 function menu_load()
 	pressed = false
 	nextMenu_load()
-	stage = 0
+	stage = 11
 	x_play_button=(width/2) - 100
 	y_play_button=(height/2) +100
 	play_pressed= false
@@ -24,6 +24,7 @@ function menu_load()
 	stage_3_play = true
 	stage_4_play = true
 	stage_5_play = true
+	stage_11_play = true
 	--------------------------line necessarias-----------------
 	mouse_positions = {}
 	size = 4,5
@@ -205,7 +206,7 @@ function menu_draw()
 		else love.graphics.draw(exit_button_pressed, x_exit_button, y_exit_button)
 		end
 	end
-	if stage > 0 then 
+	if stage > 0 and stage < 11 then 
 		for i = 1, #mouse_positions do
 			obj = mouse_positions[i]
 	

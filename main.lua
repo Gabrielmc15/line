@@ -4,6 +4,8 @@ require "files/stage2"
 require "files/stage3"
 require "files/stage4"
 require "files/stage5"
+require "files/stage11"
+require "files/utf8"
 require "files/checaToque"
 require "files/menu"
 require "files/nextMenu"
@@ -22,7 +24,9 @@ end
 function love.update(dt)
 	menu_update(dt)
 	animation_update(dt)
-	nextMenu_update(dt)
+	if stage < 11 then
+		nextMenu_update(dt)
+	end
 	if stage == 1 then
 		if stage_1_play then
 			stage1_load()
@@ -48,15 +52,20 @@ function love.update(dt)
 			stage5_load()
 		end
 		stage5_update(dt)
+	elseif stage == 11 then
+		if stage_11_play then
+			stage11_load()
+		end
+		stage11_update(dt)
 	end
-	if stage > 5 then
+	if stage > 11 then
 		menu_load()
 	end
 end
 
 function love.draw()
 	menu_draw()
-	if stage > 0 then
+	if stage > 0 and stage < 11 then
 		sideMenu_draw()
 	end
 	if stage == 1 then
@@ -69,6 +78,8 @@ function love.draw()
 		stage4_draw()
 	elseif stage == 5 then
 		stage5_draw()
+	elseif stage == 11 then
+		stage11_draw()
 	end
 	nextMenu_draw()
 end
