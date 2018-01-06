@@ -121,8 +121,8 @@ function nextMenu_update(dt)
 			if pressed_next_menu then
 				if stage == 5 then
 					stage = 11
+				else stage = stage + 1
 				end
-				stage = stage + 1
 				pressed_next_menu = false
 				love.audio.play( click )
 			end

@@ -1,5 +1,6 @@
 function stage11_load()
 	stage_11_play = false
+	nextMenu_load()
 
 	x_gravar_button = (width/3 - 75) + 450
 	y_gravar_button = (height/10) + 650
@@ -14,6 +15,7 @@ function stage11_load()
 end
 
 function stage11_update(dt)
+	nextMenu_load()
 	function love.textinput(t)
 	    text = text .. t
 	end
@@ -25,6 +27,12 @@ function stage11_update(dt)
 	---------------------------------------------------------------------------------------
 	if checaToqueRectangle(x_mouse,y_mouse, x_gravar_button, y_gravar_button, 200, 50) then
 		gravar_pressed=true
+		if love.mouse.isDown(1) then
+			stage = 12
+			love.audio.play( click )
+			players[#players] = text
+			scores[#scores] = total_score
+		end
 		else gravar_pressed= false
 	end
 	if checaToqueRectangle(x_mouse,y_mouse, x_button_menu, y_button_menu, 200, 50) then
@@ -34,7 +42,7 @@ function stage11_update(dt)
 			stage = 0
 		end
 		else score_menu_pressed = false
-	end				
+	end		
 end
 
 

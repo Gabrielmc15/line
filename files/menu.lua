@@ -1,7 +1,7 @@
 function menu_load()
 	pressed = false
 	nextMenu_load()
-	stage = 11
+	stage = 0
 	x_play_button=(width/2) - 100
 	y_play_button=(height/2) +100
 	play_pressed= false
@@ -14,6 +14,11 @@ function menu_load()
 	y_exit_button=y_scores_button + 70
 	exit_pressed= false
 	------------------------variaveis necessarias---------------
+	players = {}
+	scores = {}
+	players[1] = ""
+	scores[1] = 0
+
 	total_score = 0
 	score = 0
 	final_score = 0
@@ -25,6 +30,7 @@ function menu_load()
 	stage_4_play = true
 	stage_5_play = true
 	stage_11_play = true
+	stage_12_play = true
 	--------------------------line necessarias-----------------
 	mouse_positions = {}
 	size = 4,5
@@ -108,7 +114,7 @@ function menu_update(dt)
 		if checaToqueRectangle(x_mouse,y_mouse, x_scores_button, y_scores_button, 200, 50) then
 			scores_pressed = true
 			if pressed_menu then
-				stage = 0
+				stage = 12
 				pressed_menu= false
 				love.audio.play( click )
 			end
