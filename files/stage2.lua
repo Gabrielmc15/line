@@ -241,7 +241,6 @@ function stage2_draw()
     	love.graphics.draw(fan.spriteSheet, fan.quads[spriteNum],  (width/3- 75) + 10 , (height/10) + 130, 0, 1/2, 1/2)
 		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 220, 0, 1/2, 1/2)
 		love.graphics.draw(stage_arrow_button, (width/3- 75) + 15 , (height/10) + 170, 0, 1/2, 1/2)
-
 	end
 
 	-------------------------side menu--------------------------------------

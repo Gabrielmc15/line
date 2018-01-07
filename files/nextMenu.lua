@@ -119,7 +119,7 @@ function nextMenu_update(dt)
 		if checaToqueRectangle(x_mouse,y_mouse, x_next_button, y_next_button, 148, 40) then
 			next_pressed = true
 			if pressed_next_menu then
-				if stage == 5 then
+				if stage == 6 then
 					stage = 11
 				else stage = stage + 1
 				end
@@ -134,7 +134,6 @@ function nextMenu_update(dt)
 			try_again_pressed = true
 			if pressed_next_menu then 
 				love.audio.play( click )
-				--fail = true
 				if stage == 1 then
 					world_1:destroy( )
 					stage1_load()
@@ -148,6 +147,9 @@ function nextMenu_update(dt)
 					world_4:destroy( )
 					stage4_load()
 				elseif stage == 5 then
+					world_5:destroy( )
+					stage5_load()
+				elseif stage == 6 then
 					world_5:destroy( )
 					stage5_load()
 				end

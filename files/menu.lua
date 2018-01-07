@@ -24,6 +24,7 @@ function menu_load()
 	stage_3_play = true
 	stage_4_play = true
 	stage_5_play = true
+	stage_6_play = true
 	stage_11_play = true
 	stage_12_play = true
 	--------------------------line necessarias-----------------

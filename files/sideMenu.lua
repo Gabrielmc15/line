@@ -80,6 +80,9 @@ function sideMenu_update(dt)
 				elseif stage == 5 then
 					world_5:destroy( )
 					stage5_load()
+				elseif stage == 6 then
+					world_6:destroy( )
+					stage6_load()
 				end
 				score_update = true
 			end
@@ -102,7 +105,7 @@ function sideMenu_update(dt)
 			stage_play=true
 		end
 		if love.mouse.isDown(1) and stage_play then 
-			if checarToqueCircle(x_mouse, y_mouse, x_stage_arrow_button+32 , y_stage_arrow_button +32, 32 ) and stage_arrow and (stage == 2 or stage == 4 or stage == 5) then
+			if checarToqueCircle(x_mouse, y_mouse, x_stage_arrow_button+32 , y_stage_arrow_button +32, 32 ) and stage_arrow and (stage == 2 or stage == 4 or stage == 5 or stage == 6) then
 				love.audio.play( click )
 				if arrow_right_active then
 					arrow_left_active = true
@@ -113,7 +116,7 @@ function sideMenu_update(dt)
 					arrow_left_active = false
 					stage_arrow = false
 				end
-				elseif checarToqueCircle(x_mouse, y_mouse, x_stage_ball_button+32 , y_stage_ball_button +32, 32 ) and stage_ball and (stage == 4 or stage == 5) then
+				elseif checarToqueCircle(x_mouse, y_mouse, x_stage_ball_button+32 , y_stage_ball_button +32, 32 ) and stage_ball and (stage == 5 or stage == 6) then
 					love.audio.play( click )
 				if yoga_ball_active then
 					beach_ball_active = true
@@ -143,10 +146,11 @@ function sideMenu_draw()
 	love.graphics.draw(stage_play_button, x_stage_play_button, y_stage_play_button)
 	love.graphics.draw(stage_replay_button, x_stage_replay_button, y_stage_replay_button)
 	love.graphics.draw(stage_help_button, x_stage_help_button, y_stage_help_button)
-	if (stage == 2 or stage == 4 or stage == 5) then
+	if (stage == 2 or stage == 4 or stage == 5 or stage == 6) then
 		love.graphics.draw(stage_arrow_button, x_stage_arrow_button, y_stage_arrow_button)
 	end
-	if stage == 4 or stage == 5 then
+	
+	if stage == 5 or stage == 6 then
 		love.graphics.draw(stage_ball_button, x_stage_ball_button, y_stage_ball_button)
 	end
 end
