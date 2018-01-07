@@ -195,6 +195,11 @@ end
 
 function menu_draw()
 	if stage == 0 then
+		love.graphics.setFont(cartoon)
+		love.graphics.setColor(0, 0, 0)
+		love.graphics.print( "LINE" , x_play_button-45, 100)
+		love.graphics.print( "MAKER" , x_play_button-120, 250)
+		love.graphics.setColor(255, 255, 255)
 		if not play_pressed then
 			love.graphics.draw(play_button, x_play_button, y_play_button)
 		else love.graphics.draw(play_button_pressed, x_play_button, y_play_button)

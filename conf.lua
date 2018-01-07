@@ -6,5 +6,6 @@ function conf_load()
 	--love.window.setFullscreen( true )
 	font = love.graphics.newFont( "font/antiqua.ttf",48)
 	font_low = love.graphics.newFont( "font/antiqua.ttf",24)
-	love.window.setTitle( "LINE" )
+	cartoon = love.graphics.newFont( "font/cartoon.ttf",148)
+	love.window.setTitle( "LINE_MAKER" )
 end
