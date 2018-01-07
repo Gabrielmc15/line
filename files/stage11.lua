@@ -11,13 +11,24 @@ function stage11_load()
 	score_menu_pressed = false
 
 	text = ""
+	limit = 0
     love.keyboard.setKeyRepeat(true)
+    r = total_score
+
+    players ={}
+	scores = {}
+
+	i=1
+	j=1
 end
 
 function stage11_update(dt)
 	nextMenu_load()
 	function love.textinput(t)
-	    text = text .. t
+		if limit < 8 then
+	    	text = text .. t
+		end
+	    limit = limit +1
 	end
 	function love.keypressed(key)
    		if key == "backspace" then
@@ -28,10 +39,10 @@ function stage11_update(dt)
 	if checaToqueRectangle(x_mouse,y_mouse, x_gravar_button, y_gravar_button, 200, 50) then
 		gravar_pressed=true
 		if love.mouse.isDown(1) then
-			stage = 12
 			love.audio.play( click )
-			players[#players] = text
-			scores[#scores] = total_score
+			scores_load()
+			scores_update(dt)
+			stage = 12
 		end
 		else gravar_pressed= false
 	end

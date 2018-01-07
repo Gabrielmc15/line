@@ -1,6 +1,6 @@
 function menu_load()
-	pressed = false
 	nextMenu_load()
+	pressed = false
 	stage = 0
 	x_play_button=(width/2) - 100
 	y_play_button=(height/2) +100
@@ -14,11 +14,6 @@ function menu_load()
 	y_exit_button=y_scores_button + 70
 	exit_pressed= false
 	------------------------variaveis necessarias---------------
-	players = {}
-	scores = {}
-	players[1] = ""
-	scores[1] = 0
-
 	total_score = 0
 	score = 0
 	final_score = 0
