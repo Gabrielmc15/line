@@ -57,6 +57,7 @@ function audio_load()
 	win_sound_1 = love.audio.newSource("audio/win_sound_1.wav", "static")
 	win_sound_2 = love.audio.newSource("audio/win_sound_2.wav", "static")
 	win_sound_3 = love.audio.newSource("audio/win_sound_3.wav", "static")
+	fail_sound = love.audio.newSource("audio/fail.wav", "static")
 
 	fan_sound = love.audio.newSource("audio/fan_fx.wav", "static")
 	booster_sound = love.audio.newSource("audio/booster_sound.wav", "static")

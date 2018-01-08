@@ -129,7 +129,7 @@ function menu_update(dt)
 		end
 	end
 		------------------------------flag---------------------------------------------------
-	if y_ball > 950 then
+	if y_ball > height+300 then
 		fail = true
 	end
 

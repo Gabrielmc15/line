@@ -16,6 +16,8 @@ function nextMenu_load()
 	x_menu_button = x_menu +50
 	y_menu_button = y_menu +400
 	menu_pressed = false 
+
+	fail_sound_playable = true
 	----------------------------score stars---------------------------------------
 	x_score_star_1 = x_menu+20
 	y_score_star_1 = y_menu +300
@@ -47,15 +49,26 @@ function nextMenu_update(dt)
 			y_menu_button = y_menu_fail +400
 		end
 		---variaveis das estrelas em funcao do menu 
-		x_score_star_1 = x_menu+ 100
-		y_score_star_1 = y_menu +250
-
-		x_score_star_2 = x_menu + 180+50
-		y_score_star_2 = y_menu +210
-
-		x_score_star_3 = x_menu + 360
-		y_score_star_3 = y_menu +250
-
+		if passou then
+			x_score_star_1 = x_menu+ 100
+			y_score_star_1 = y_menu +250
+	
+			x_score_star_2 = x_menu + 180+50
+			y_score_star_2 = y_menu +210
+	
+			x_score_star_3 = x_menu + 360
+			y_score_star_3 = y_menu +250
+		elseif fail then
+			x_score_star_1 = x_menu_fail+ 100
+			y_score_star_1 = y_menu_fail +250
+	
+			x_score_star_2 = x_menu_fail + 180+50
+			y_score_star_2 = y_menu_fail +210
+	
+			x_score_star_3 = x_menu_fail + 360
+			y_score_star_3 = y_menu_fail +250
+		end
+	
 		-- algoritmo para o menu se passou
 		if passou then
 			y_menu = y_menu-20
@@ -83,6 +96,10 @@ function nextMenu_update(dt)
 		--algoritmo para o menu se falhou
 		if fail then
 			y_menu_fail = y_menu_fail -20
+			if fail_sound_playable then
+				love.audio.play( fail_sound )
+				fail_sound_playable = false
+			end
 		end
 
 		if y_menu_fail < (height/2)-(250) then
@@ -191,16 +208,16 @@ function nextMenu_draw()
    	 	love.graphics.print( pontuacao, x_menu+195, y_menu +300)
    	 
    	 	love.graphics.setColor(255,255,255)
-   	 	if pontuacao >= 100  then
+   	 	if passou and pontuacao >= 100  then
    	 		love.graphics.draw(score_star__1_full, x_score_star_1, y_score_star_1, 0.523, 1, 1, 64, 64)
    	 	else love.graphics.draw(score_star_1, x_score_star_1, y_score_star_1, 0.523, 1, 1, 64, 64)
    	 	end
 		
-		if pontuacao >= 250 then
+		if passou and pontuacao >= 250 then
 			love.graphics.draw(score_star__2_full, x_score_star_2, y_score_star_2, 0, 1, 1, 64, 64)
 		else love.graphics.draw(score_star_2, x_score_star_2, y_score_star_2, 0, 1, 1, 64, 64)
 		end
-		if pontuacao >= 400  then
+		if passou and pontuacao >= 400  then
 			love.graphics.draw(score_star__3_full, x_score_star_3, y_score_star_3, -0.523, 1, 1, 64, 64)
 		else love.graphics.draw(score_star_3, x_score_star_3, y_score_star_3, -0.523, 1, 1, 64, 64)
 		end
