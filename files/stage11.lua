@@ -6,7 +6,6 @@ function stage11_load()
 	y_gravar_button = (height/10) + (height*7/10)
 	gravar_pressed = false
 	
-
 	text = ""
 	limit = 0
     love.keyboard.setKeyRepeat(true)

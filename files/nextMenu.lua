@@ -48,6 +48,7 @@ function nextMenu_update(dt)
 			x_menu_button = x_menu_fail +50
 			y_menu_button = y_menu_fail +400
 		end
+
 		---variaveis das estrelas em funcao do menu 
 		if passou then
 			x_score_star_1 = x_menu+ 100

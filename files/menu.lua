@@ -71,9 +71,6 @@ function menu_load()
 end
 
 function menu_update(dt)
-	--[[if love.keyboard.isDown("escape") then
-		love.window.close( )
-	end--]]
 	------------------para somar e subtrair score-----------------------
 	if score_update then
 		total_score = score + final_score 

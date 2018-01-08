@@ -73,7 +73,6 @@ function love.update(dt)
 	elseif stage == 12 then
 		if stage_12_play then
 			stage12_load()
-			--stage11_update(dt)
 		end
 		stage12_update(dt)
 	end
