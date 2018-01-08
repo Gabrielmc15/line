@@ -73,7 +73,7 @@ function stage2_load()
 	passou= false
 	fail=false
 	---------------------------------fan---------------------------------------------
-	x_fan= width*4/5 + 100
+	x_fan= width*4/5 + 50
 	y_fan = height*9/10
 
 	x_wind_1= x_fan + 20
