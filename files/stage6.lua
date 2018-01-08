@@ -77,7 +77,7 @@ function stage6_load()
 	star_1_collision = false
 
 	x_star2= width/2 + 200
-	y_star2= height-180
+	y_star2= height-160
 	star_2_collision = false
 
 	x_star3= x_portal_2 - 100

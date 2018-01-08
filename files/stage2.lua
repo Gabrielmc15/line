@@ -234,7 +234,7 @@ function stage2_draw()
 		love.graphics.print( 'O botão "seta" muda a direção em que a bola irá sair', (width/3- 75) + 50 , (height/10) + 175)
 		love.graphics.print( " No decorrer do jogo novos objetos e novas interações irão", (width/3- 75) + 50 , (height/10) + 225)
 		love.graphics.print( 'aparecer, então quando precisar de ajuda clique no botão "help"', (width/3- 75) + 15 , (height/10) + 250)
-		love.graphics.print( '"esc" para sair do menu de ajuda', 350 + (width/3 - 75) , (height/10)+ (height*4/10) )
+		love.graphics.print( '"esc" para sair do menu de ajuda', 350 + (width/3 - 75) , (height/10)+ (height*4/10))
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.draw(star.spriteSheet, star.quads[spriteNum], (width/3- 75) + 15 , (height/10) + 75, 0, 1)
 		local spriteNum = math.floor(fan.currentTime / fan.duration * #fan.quads) + 1
