@@ -2,7 +2,7 @@ function stage12_load()
 	stage_12_play = false
 	nextMenu_load()
 	x_button_menu = (width/3 - 75) + 50
-	y_button_menu = (height/10) + 650
+	y_button_menu = (height/10) + (height*7/10)
 	score_menu_pressed = false
 end
 function stage12_update(dt)

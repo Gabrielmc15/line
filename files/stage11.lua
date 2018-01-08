@@ -3,7 +3,7 @@ function stage11_load()
 	nextMenu_load()
 
 	x_gravar_button = (width/3 - 75) + 450
-	y_gravar_button = (height/10) + 650
+	y_gravar_button = (height/10) + (height*7/10)
 	gravar_pressed = false
 	
 
