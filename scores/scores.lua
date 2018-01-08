@@ -12,21 +12,23 @@ function read_scores(file)
 	players_read = {}
 	scores_read = {}
 	local i=1
-	for w in string.gmatch(data, "%w+") do
-		scores_players_read[i]=w
-		i=i+1
-	end
+	if data ~= nil then
+		for w in string.gmatch(data, "%w+") do
+			scores_players_read[i]=w
+			i=i+1
+		end
+		
+		local j = 1
+		local k = 1
+		for i= 1 , #scores_players_read,2 do
+			players_read[j] = scores_players_read[i]
+			j=j+1
+		end
 	
-	local j = 1
-	local k = 1
-	for i= 1 , #scores_players_read,2 do
-		players_read[j] = scores_players_read[i]
-		j=j+1
-	end
-
-	for i= 2 , #scores_players_read,2 do
-		scores_read[k] = scores_players_read[i]
-		k=k+1
+		for i= 2 , #scores_players_read,2 do
+			scores_read[k] = scores_players_read[i]
+			k=k+1
+		end
 	end
 end
 
@@ -62,14 +64,16 @@ end
 
 function scores_draw()
 	love.graphics.setColor(0, 0, 0)
-	for i=1, #players_read do
-		if i <= 10 then
-			love.graphics.print(players_read[i], (width/3 - 75) + 150, (height/10) + (i*50)+50)
+	if data ~= nil then
+		for i=1, #players_read do
+			if i <= 10 then
+				love.graphics.print(players_read[i], (width/3 - 75) + 150, (height/10) + (i*50)+50)
+			end
 		end
-	end
-	for i=1, #scores_read do
-		if i <= 10 then
-			love.graphics.print(scores_read[i], (width/3 - 75) + 500, (height/10) + (i*50)+50)
+		for i=1, #scores_read do
+			if i <= 10 then
+				love.graphics.print(scores_read[i], (width/3 - 75) + 500, (height/10) + (i*50)+50)
+			end
 		end
 	end
 end

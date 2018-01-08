@@ -23,10 +23,8 @@ function stage12_draw()
 	love.graphics.rectangle( "line", (width/3- 75), (height/10) , 700 , (height*8/10))
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.print("PONTUAÇÕES", (width/3 - 75) + 190, (height/10) + 30)
-	if text ~= nil then
-		scores_update(dt)
-		scores_draw()
-	end
+	scores_update(dt)
+	scores_draw()
 	love.graphics.setFont(font)
 	---------------------------------------------------------------------------------
 	love.graphics.setColor(255, 255, 255)
