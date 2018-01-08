@@ -119,7 +119,7 @@ function nextMenu_update(dt)
 		if checaToqueRectangle(x_mouse,y_mouse, x_next_button, y_next_button, 148, 40) then
 			next_pressed = true
 			if pressed_next_menu then
-				if stage == 6 then
+				if stage == 7 then
 					stage = 11
 				else stage = stage + 1
 				end
@@ -150,8 +150,11 @@ function nextMenu_update(dt)
 					world_5:destroy( )
 					stage5_load()
 				elseif stage == 6 then
-					world_5:destroy( )
-					stage5_load()
+					world_6:destroy( )
+					stage6_load()
+				elseif stage == 7 then
+					world_7:destroy( )
+					stage7_load()
 				end
 				pressed_next_menu = false
 			end

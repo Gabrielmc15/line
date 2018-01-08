@@ -25,6 +25,7 @@ function menu_load()
 	stage_4_play = true
 	stage_5_play = true
 	stage_6_play = true
+	stage_7_play = true
 	stage_11_play = true
 	stage_12_play = true
 	--------------------------line necessarias-----------------
@@ -199,6 +200,7 @@ function menu_draw()
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.print( "LINE" , x_play_button-45, 100)
 		love.graphics.print( "MAKER" , x_play_button-120, 250)
+		love.graphics.setFont(font_low)
 		love.graphics.setColor(255, 255, 255)
 		if not play_pressed then
 			love.graphics.draw(play_button, x_play_button, y_play_button)

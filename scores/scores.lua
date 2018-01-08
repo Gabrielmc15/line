@@ -63,9 +63,13 @@ end
 function scores_draw()
 	love.graphics.setColor(0, 0, 0)
 	for i=1, #players_read do
-		love.graphics.print(players_read[i], (width/3 - 75) + 150, (height/10) + (i*50)+50)
+		if i <= 10 then
+			love.graphics.print(players_read[i], (width/3 - 75) + 150, (height/10) + (i*50)+50)
+		end
 	end
 	for i=1, #scores_read do
-		love.graphics.print(scores_read[i], (width/3 - 75) + 500, (height/10) + (i*50)+50)
+		if i <= 10 then
+			love.graphics.print(scores_read[i], (width/3 - 75) + 500, (height/10) + (i*50)+50)
+		end
 	end
 end

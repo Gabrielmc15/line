@@ -5,6 +5,7 @@ require "files/stage3"
 require "files/stage4"
 require "files/stage5"
 require "files/stage6"
+require "files/stage7"
 require "files/stage11"
 require "files/stage12"
 require "scores/scores"
@@ -59,6 +60,11 @@ function love.update(dt)
 			stage6_load()
 		end
 		stage6_update(dt)
+	elseif stage == 7 then
+		if stage_7_play then
+			stage7_load()
+		end
+		stage7_update(dt)
 	elseif stage == 11 then
 		if stage_11_play then
 			stage11_load()
@@ -93,6 +99,8 @@ function love.draw()
 		stage5_draw()
 	elseif stage == 6 then
 		stage6_draw()
+	elseif stage == 7 then
+		stage7_draw()
 	elseif stage == 11 then
 		stage11_draw()
 	elseif stage == 12 then

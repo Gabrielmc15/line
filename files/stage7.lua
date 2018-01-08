@@ -1,34 +1,25 @@
-function stage2_load()
-	stage_2_play = false
+function stage7_load()
+	stage_7_play = false
 	nextMenu_load()
 	sideMenu_load()
 	win_sound_playable = true
-	world_2 = love.physics.newWorld(0, 5*64, true)
+	world_7 = love.physics.newWorld(0, 5*64, true)
 	objects = {}
-	---------------------------------platforms--------------------------------------------
-	objects.platform = {}
-	objects.platform.body = love.physics.newBody(world_2, width/2 - 300,(height*1/5)-19)
-	objects.platform.shape = love.physics.newRectangleShape(150, 15)
-	objects.platform.fixture = love.physics.newFixture(objects.platform.body, objects.platform.shape)
-
-	objects.platform_left = {}
-	objects.platform_left.body = love.physics.newBody(world_2, width/4 +25 ,(height*1/5)+174)
-	objects.platform_left.shape = love.physics.newRectangleShape(15, 400)
-	objects.platform_left.fixture = love.physics.newFixture(objects.platform_left.body, objects.platform_left.shape)
-
-	objects.platform_top = {}
-	objects.platform_top.body = love.physics.newBody(world_2, width*4/5, 0 )
-	objects.platform_top.shape = love.physics.newRectangleShape(15, height*6/4 )
-	objects.platform_top.fixture = love.physics.newFixture(objects.platform_top.body, objects.platform_top.shape)
-
+	---------------------------------platform--------------------------------------------
+	objects.platform_right = {}
+	objects.platform_right.body = love.physics.newBody(world_7, width*1/4,(height*1/5)-19)
+	objects.platform_right.shape = love.physics.newRectangleShape(150, 15)
+	objects.platform_right.fixture = love.physics.newFixture(objects.platform_right.body, objects.platform_right.shape)
 	--------------------------------ball--------------------------------------------------
 	objects.ball = {}
-	objects.ball.body = love.physics.newBody(world_2, width/2 - 300 ,(height*1/5)-47, "dynamic")
+	objects.ball.body = love.physics.newBody(world_7, width/4 ,(height*1/5)-47, "dynamic")
 	objects.ball.shape = love.physics.newCircleShape(21)
 	objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape)
-	x_ball, y_ball = objects.ball.body:getX(), objects.ball.body:getY()
 	objects.ball.body:setActive( false )
+	x_ball, y_ball = objects.ball.body:getX(), objects.ball.body:getY()
 	rotation = math.pi
+	beach_ball_active = false
+	yoga_ball_active = true
 
 	--------------------------------side bar--------------------------------------------------
 	x_stage_play_button= 15
@@ -37,11 +28,11 @@ function stage2_load()
 	x_stage_replay_button = x_stage_play_button 
 	y_stage_replay_button = height - 150
 
-	x_stage_arrow_button =  x_stage_play_button 
-	y_stage_arrow_button =  y_stage_play_button + 74
-
 	x_stage_help_button =  x_stage_play_button 
 	y_stage_help_button = height - 75
+
+	x_stage_arrow_button =  x_stage_play_button 
+	y_stage_arrow_button =  y_stage_play_button + 74
 
 	x_arrow_right =  x_ball + 40
 	y_arrow_right =  y_ball - 35
@@ -50,12 +41,16 @@ function stage2_load()
 	x_arrow_left =  x_ball - 104
 	y_arrow_left =  y_ball - 35
 	arrow_left_active = true
-	
+
+	x_stage_ball_button = x_stage_arrow_button
+	y_stage_ball_button = y_stage_arrow_button + 74
+
 	stage_play = true --controle
 	stage_replay=true -- controle
 	stage_help = true
-	stage_arrow = true
 	help = false
+	-------------------------espaço indesenhavel----------------------------------------
+	grey_space = false
 	-------------------------line---------------------------------------------------------
 	mouse_positions = {}
 	size = 4,5
@@ -64,45 +59,46 @@ function stage2_load()
 	draw= true
 	--line
 	objects.line={}
-	objects.line.body = love.physics.newBody(world_2, width_line, height_line)
+	objects.line.body = love.physics.newBody(world_7, width_line, height_line)
 	objects.line.shape = love.physics.newCircleShape(size)
 	objects.line.fixture = love.physics.newFixture(objects.line.body, objects.line.shape)
 	-----------------------flag---------------------------------------------------------
-	x_flag=width-180
-	y_flag=45 + 50
+	x_flag=width-150
+	y_flag=height*3/4 +50
 	passou= false
 	fail=false
-	---------------------------------fan---------------------------------------------
-	x_fan= width*4/5 + 100
-	y_fan = height*9/10
-
-	x_wind_1= x_fan + 20
-	y_wind_1= y_fan-70
-
-	x_wind_2= x_fan + 20
-	y_wind_2= y_fan-166
-
-	x_wind_3= x_fan + 20
-	y_wind_3= y_fan-262
-
-
 	------------------------stars------------------------------------------------------
 	score= 0
 	x_star1= 175
-	y_star1= (height*3/5)-250
+	y_star1= (height*1/5)
 	star_1_collision = false
 
-	x_star2= width/2
-	y_star2= height-200
+	x_star2= width/2 - 25
+	y_star2= height/2 - 50
 	star_2_collision = false
 
-	x_star3= width-180
+	x_star3= width-150
 	y_star3= height/2
 	star_3_collision = false
 	stars={}
 	for i=1,4 do
 		stars[i]=0
 	end
+	--------------------------portal----------------------------------------------
+	x_portal_1= 100
+	y_portal_1= height*4/5
+
+	x_portal_2= width- 30 
+	y_portal_2= 45 + 200
+	portal_active = true
+
+	-------------------------booster-----------------------------------------------
+	x_booster_1 = width/2 - 125
+	y_booster_1 =height /2 -25 + 200
+
+	x_booster_2 = width/2 + 75
+	y_booster_2 = height*1/3 + 200
+
 	--para o efeito da pontuacao
 	x_score_1=x_star1
 	y_score_1=y_star1
@@ -114,19 +110,16 @@ function stage2_load()
 	opacity2 = 255
 	opacity3 = 255
 end
-function stage2_update(dt)
-	world_2:update(dt)
+
+
+
+function stage7_update(dt)
+	world_7:update(dt)
 	sideMenu_update(dt)
 	x_mouse, y_mouse = love.mouse.getPosition( )
 	x, y = love.mouse.getPosition( )
 	velocX_bola, velocY_bola = objects.ball.body:getLinearVelocity( )
 	x_ball, y_ball = objects.ball.body:getX(), objects.ball.body:getY()
-
-	-------------------------fan----------------------------------------------
-	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_wind_3, y_wind_3, 96, 96*3) then
-		objects.ball.body:applyForce(0,-500)
-		love.audio.play( fan_sound )
-	end
 
 	------------------------line-----------------------------------------
 
@@ -139,12 +132,12 @@ function stage2_update(dt)
 	color_black = {0, 0, 0}
 	down = love.mouse.isDown(1)
 
-	if down and draw then
+	if down and draw and not grey_space then
 		mouse_positions[#mouse_positions + 1] = {color_black, x, y, size}
 		width_line = x
 		height_line = y
 		objects.line={}
-		objects.line.body = love.physics.newBody(world_2, width_line, height_line)
+		objects.line.body = love.physics.newBody(world_7, width_line, height_line)
 		objects.line.shape = love.physics.newCircleShape(size)
 		objects.line.fixture = love.physics.newFixture(objects.line.body, objects.line.shape)
 	end
@@ -162,24 +155,54 @@ function stage2_update(dt)
 			draw = true
 		end
 	end
+	------------------------------------------espaço indesenhavel----------------------------------------
+	if checaToqueRectangle(x_mouse,y_mouse,  width/2 + 150 , -10, width*1/4, height +10) or checaToqueRectangle(x_mouse,y_mouse, width/4+15 , -10, width/10, height +10) or x < 90 then
+		grey_space = true
+		draw = false
+	elseif stage_play then 	
+		grey_space = false
+		draw = true
+	end
+	----------------------------------portal---------------------------------------------
+	if checaToqueRectangle(objects.ball.body:getX(),objects.ball.body:getY(), x_portal_1,  y_portal_1 +20 , 50, 140) and portal_active then 
+		objects.ball.body:setPosition(x_portal_2 -50, y_portal_2 -75)
+		love.audio.play( portal_sound )
+		portal_active = false
+	else portal_active = true
+	end
+	--------------------------------------------------booster-------------------------------------------------
+	if checaToqueRectangle(x_ball, y_ball, x_booster_1, y_booster_1, 64, 64) then
+		objects.ball.body:applyForce(1500, 0)
+		love.audio.play( booster_sound )
+	end
+	if checaToqueRectangle(x_ball, y_ball, x_booster_2 - 34, y_booster_2 - 72, 64, 64) then
+		objects.ball.body:applyForce(-1500, -500)
+		love.audio.play( booster_sound )
+	end
 end
 
-function stage2_draw()
+function stage7_draw()
    	love.graphics.setFont(font_low)
+   	----------------------------espaço indesenhavel-------------------------
+   	love.graphics.setColor(84,68,68, 255/3)
+   	love.graphics.rectangle( "fill", width/2 + 150 , -10, width*1/4, height +10 )
+   	love.graphics.rectangle( "fill", width/4 +15, -10, width/10, height +10 )
+   	love.graphics.setColor(255, 255, 255)
 
-	------------------------------fan-----------------------------------------
-	love.graphics.setColor(255, 255, 255)
+	----------------------------portal----------------------------------------
+	local spriteNum = math.floor(portal.currentTime / portal.duration * #portal.quads) + 1
+    love.graphics.draw(portal.spriteSheet, portal.quads[spriteNum], x_portal_1, y_portal_1, 0, 1)
+    love.graphics.draw(portal.spriteSheet, portal.quads[spriteNum], x_portal_2, y_portal_2, math.rad(180), 1)
 
-	local spriteNum = math.floor(fan.currentTime / fan.duration * #fan.quads) + 1
-    love.graphics.draw(fan.spriteSheet, fan.quads[spriteNum], x_fan, y_fan, 0, 1)
-	
-------------------------------ball--------------------------------------
+	------------------------------ball--------------------------------------
 	love.graphics.setColor(0, 0, 0)
-	love.graphics.polygon("fill", objects.platform.body:getWorldPoints(objects.platform.shape:getPoints()))
-	love.graphics.polygon("fill", objects.platform_top.body:getWorldPoints(objects.platform_top.shape:getPoints()))
-	love.graphics.polygon("fill", objects.platform_left.body:getWorldPoints(objects.platform_left.shape:getPoints()))
+	love.graphics.polygon("fill", objects.platform_right.body:getWorldPoints(objects.platform_right.shape:getPoints()))
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(ball, objects.ball.body:getX(), objects.ball.body:getY(),rotation, 1, 1, 21, 21)
+	if beach_ball_active then
+		love.graphics.draw(beach_ball, objects.ball.body:getX(), objects.ball.body:getY(),rotation, 1, 1, 21, 21)
+	elseif yoga_ball_active then
+		love.graphics.draw(ball, objects.ball.body:getX(), objects.ball.body:getY(),rotation, 1, 1, 21, 21)
+	end
 	if stage_play then
 		if arrow_right_active then
 			love.graphics.draw( arrow_right, x_arrow_right, y_arrow_right)
@@ -188,8 +211,11 @@ function stage2_draw()
 		end
 	end
 
------------------------------stars----------------------------------------
+	---------------------------booster-----------------------------------
+	love.graphics.draw( booster, x_booster_1, y_booster_1)
+	love.graphics.draw( booster, x_booster_2, y_booster_2,math.rad(-145))
 
+	-----------------------------stars----------------------------------------
 	love.graphics.setFont(font_low)
 	love.graphics.setColor(255, 255, 255)
 	local spriteNum = math.floor(star.currentTime / star.duration * #star.quads) + 1
@@ -212,38 +238,26 @@ function stage2_draw()
   		love.graphics.print( score, x_score_3, y_score_3)
   	end
   	love.graphics.setColor(255, 255, 255)
-  	---------------------------------fan---------------------------------------------
-    local spriteNum = math.floor(wind.currentTime / wind.duration * #wind.quads) + 1
-    love.graphics.draw(wind.spriteSheet, wind.quads[spriteNum], x_wind_1, y_wind_1, 0, 1)
-    love.graphics.setColor(255, 255, 255,255*3/4)
-    love.graphics.draw(wind.spriteSheet, wind.quads[spriteNum],x_wind_2, y_wind_2 , 0, 1)
-    love.graphics.setColor(255, 255, 255,255*1/2)
-    love.graphics.draw(wind.spriteSheet, wind.quads[spriteNum], x_wind_3, y_wind_3 , 0, 1)
+
   	--------------------------help-----------------------------------------
   	if help then
-  		local spriteNum = math.floor(star.currentTime / star.duration * #star.quads) + 1
+  		local spriteNum = math.floor(portal.currentTime / portal.duration * #portal.quads) + 1
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.rectangle( "fill", (width/3 - 75), (height/10) , 700 , (height*4/10))
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.rectangle( "line", (width/3- 75), (height/10) , 700 , (height*4/10))
 		love.graphics.print( "* Use o mouse para desenhar na tela", (width/3- 75) + 15 , (height/10) + 25)
 		love.graphics.print( "* O objetivo é fazer com que a bola toque na bandeira", (width/3- 75) + 15, (height/10) + 50)
-		love.graphics.print( " para cada estrela você ganha 100 pontos e para cada ", (width/3- 75) + 40, (height/10) + 75)
-		love.graphics.print( "  estrela extra você ganha + 50 pontos ", (width/3- 75) + 15 , (height/10) + 100)
-		love.graphics.print( 'O ventilador impulsiona a bola na direção do vento', (width/3- 75) + 85 , (height/10) + 130)
-		love.graphics.print( 'O botão "seta" muda a direção em que a bola irá sair', (width/3- 75) + 50 , (height/10) + 175)
-		love.graphics.print( " No decorrer do jogo novos objetos e novas interações irão", (width/3- 75) + 50 , (height/10) + 225)
-		love.graphics.print( 'aparecer, então quando precisar de ajuda clique no botão "help"', (width/3- 75) + 15 , (height/10) + 250)
+		love.graphics.print( " Quando a bola passa por um portal, ela se teletransporta ", (width/3- 75) + 40, (height/10) + 85)
+		love.graphics.print( " para o outro ", (width/3- 75) + 40 , (height/10) + 110)
+		love.graphics.print( " No decorrer do jogo novos objetos e novas interações irão", (width/3- 75) + 50 , (height/10) + 160)
+		love.graphics.print( 'aparecer, então quando precisar de ajuda clique no botão "help"', (width/3- 75) + 15 , (height/10) + 185)
 		love.graphics.print( '"esc" para sair do menu de ajuda', 350 + (width/3 - 75) , (height/10)+ (height*4/10) -50 )
 		love.graphics.setColor(255, 255, 255)
-		love.graphics.draw(star.spriteSheet, star.quads[spriteNum], (width/3- 75) + 15 , (height/10) + 75, 0, 1)
-		local spriteNum = math.floor(fan.currentTime / fan.duration * #fan.quads) + 1
-    	love.graphics.draw(fan.spriteSheet, fan.quads[spriteNum],  (width/3- 75) + 10 , (height/10) + 130, 0, 1/2, 1/2)
-		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 220, 0, 1/2, 1/2)
-		love.graphics.draw(stage_arrow_button, (width/3- 75) + 15 , (height/10) + 170, 0, 1/2, 1/2)
+		love.graphics.draw(portal.spriteSheet, portal.quads[spriteNum], (width/3- 75) + 15 , (height/10) + 75, 0, 1/2, 1/2)
+		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 160, 0, 1/2, 1/2)
 	end
 
 	-------------------------side menu--------------------------------------
 	sideMenu_draw()
 end
-
