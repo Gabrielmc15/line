@@ -62,7 +62,7 @@ function stage6_load()
 	y_portal_1= height*4/5 +90
 
 	x_portal_2= width- 30 
-	y_portal_2= height/4 +50
+	y_portal_2= 45 + 200
 	portal_active = true
 	------------------------------speed booster------------------------------------
 	x_booster_1= x_ball + 200

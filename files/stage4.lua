@@ -165,7 +165,7 @@ function stage4_update(dt)
 		end
 	end
 	-----------------------------booster---------------------------------------
-	if checaToqueRectangle(x_ball, y_ball, x_booster-32, y_booster-32, 64, 64) then
+	if checaToqueRectangle(x_ball, y_ball, x_booster-32, y_booster-32, 64, 64)) then
 		objects.ball.body:applyForce(-1500, 0)
 		love.audio.play( booster_sound )
 	end
