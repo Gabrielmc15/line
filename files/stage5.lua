@@ -80,7 +80,7 @@ function stage5_load()
 	star_2_collision = false
 
 	x_star3= width/2 - 32
-	y_star3= height -600
+	y_star3= height/2 - 175
 	star_3_collision = false
 	stars={}
 	for i=1,4 do
