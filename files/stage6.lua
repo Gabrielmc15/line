@@ -204,24 +204,21 @@ function stage6_draw()
 
   	--------------------------help-----------------------------------------
   	if help then
+		local spriteNum = math.floor(portal.currentTime / portal.duration * #portal.quads) + 1
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.rectangle( "fill", (width/3 - 75), (height/10) , 700 , (height*4/10))
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.rectangle( "line", (width/3- 75), (height/10) , 700 , (height*4/10))
 		love.graphics.print( "* Use o mouse para desenhar na tela", (width/3- 75) + 15 , (height/10) + 25)
 		love.graphics.print( "* O objetivo é fazer com que a bola toque na bandeira", (width/3- 75) + 15, (height/10) + 50)
-		love.graphics.print( " para cada estrela você ganha 100 pontos e para cada ", (width/3- 75) + 40, (height/10) + 75)
-		love.graphics.print( "  estrela extra você ganha + 50 pontos ", (width/3- 75) + 15 , (height/10) + 100)
-		love.graphics.print( 'O botão "play" impulsiona a bola na direção da seta', (width/3- 75) + 50 , (height/10) + 135)
-		love.graphics.print( 'O botão "replay" reinicia a fase', (width/3- 75) + 50 , (height/10) + 170)
-		love.graphics.print( " No decorrer do jogo novos objetos e novas interações irão", (width/3- 75) + 50 , (height/10) + 205)
-		love.graphics.print( 'aparecer, então quando precisar de ajuda clique no botão "help"', (width/3- 75) + 15 , (height/10) + 230)
+		love.graphics.print( " Quando a bola passa por um portal, ela se teletransporta ", (width/3- 75) + 40, (height/10) + 85)
+		love.graphics.print( " para o outro ", (width/3- 75) + 40 , (height/10) + 110)
+		love.graphics.print( " No decorrer do jogo novos objetos e novas interações irão", (width/3- 75) + 50 , (height/10) + 160)
+		love.graphics.print( 'aparecer, então quando precisar de ajuda clique no botão "help"', (width/3- 75) + 15 , (height/10) + 185)
 		love.graphics.print( '"esc" para sair do menu de ajuda', 350 + (width/3 - 75) , (height/10)+ (height*4/10) -50 )
 		love.graphics.setColor(255, 255, 255)
-		love.graphics.draw(star.spriteSheet, star.quads[spriteNum], (width/3- 75) + 15 , (height/10) + 75, 0, 1)
-		love.graphics.draw( stage_play_button, (width/3- 75) + 15 , (height/10) + 135, 0, 1/2, 1/2)
-		love.graphics.draw( stage_replay_button, (width/3- 75) + 15 , (height/10) + 170, 0, 1/2, 1/2)
-		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 205, 0, 1/2, 1/2)
+		love.graphics.draw(portal.spriteSheet, portal.quads[spriteNum], (width/3- 75) + 15 , (height/10) + 75, 0, 1/2, 1/2)
+		love.graphics.draw( stage_help_button, (width/3- 75) + 15 , (height/10) + 160, 0, 1/2, 1/2)
 	end
 	-------------------------side menu--------------------------------------
 	sideMenu_draw()
